@@ -1,15 +1,19 @@
-FROM node:18.4.0-alpine
-
+FROM node:19-alpine AS build
 
 WORKDIR /app/
+
 COPY package*.json /app/
-RUN npm ci --force
+
+RUN npm install ci --force
+
 COPY . /app/
+
 RUN npm run build
 
-### STAGE 2: Run ###
-FROM nginx:1.17.1-alpine
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/_static /usr/share/nginx/html
+FROM nginx:1.23.2-alpine
+
+COPY ./nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /app/dist/ /usr/share/nginx/html
 
 EXPOSE 80
