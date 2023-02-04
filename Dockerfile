@@ -1,8 +1,9 @@
 FROM node:18.4.0-alpine
 
+
 WORKDIR /app/
 COPY package*.json /app/
-RUN npm install
+RUN npm ci --force
 COPY . /app/
 RUN npm run build
 
