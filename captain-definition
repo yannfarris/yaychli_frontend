@@ -4,7 +4,7 @@
   "FROM node:18.4.0-alpine",
   "WORKDIR /app/",
   "COPY package*.json /app/",
-  "RUN npm install ci && npm cache clean --force",
+  "RUN npm install ci",
   "COPY . /app/",
   "COPY . /app/",
   "RUN npm run build",
