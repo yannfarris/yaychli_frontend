@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  url:'http://srv-captain--yaychli-backend:4500/',
+  url:'http://srv-captain--yaychli-backend:8080/',
   production: true,
   appVersion: 'v8.0.38',
   USERDATA_KEY: 'authf649fc9a5f55',
