@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  url:'https://yaychli-api.sendmala.com/',
+  url:'https://yaychli-api.sendmala.com/', 
   production: true,
   appVersion: 'v8.0.38',
   USERDATA_KEY: 'authf649fc9a5f55',
