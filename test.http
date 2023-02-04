@@ -1,0 +1,9 @@
+POST http://localhost:1337/api/auth/local?populate=* HTTP/1.1
+content-type: application/json
+
+{
+    "identifier": "aurak",
+    "password": "uu7u3gh98yepP"
+}
+
+# GET http://localhost:1337/api/users

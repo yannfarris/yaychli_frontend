@@ -1,0 +1,58 @@
+
+<div class="modal-container d-flex justify-content-between flex-column mh-700px">
+
+  
+
+    <div class="modal-header justify-content-end border-bottom-0 pb-2">
+
+        <div (click)="closeModal()" class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+
+            <span [inlineSVG]="'assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-2x"></span>
+
+        </div>
+
+    </div>
+
+  
+
+    <div class="modal-body h-100 scroll-y pt-2">
+
+  
+
+        <div class="mb-6 text-center">
+
+            <h1 class="mb-3">{{ 'media.file_upload' | translate }}</h1>
+
+        </div>
+
+        <app-upload [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}"></app-upload>
+
+    </div>
+
+    <div class="modal-footer justify-content-center border-top-0">
+
+  
+
+        <div class="text-center">
+
+            <button matRipple class="btn btn-light me-3" (click)="closeModal()">{{ 'general.cancel' | translate }}</button>
+
+            <button matRipple [disabled]="(settings.isLoading | async).state === 'on'" (click)="save()" class="btn btn-primary fw-bolder">
+
+                <span *ngIf="(settings.isLoading | async).state === 'on'" class="spinner-border spinner-border-sm align-middle mx-3"></span>
+
+  
+
+                <span class="indicator-label">{{ 'general.submit' | translate }}</span>
+
+            </button>
+
+  
+
+        </div>
+
+    </div>
+
+  
+
+</div>

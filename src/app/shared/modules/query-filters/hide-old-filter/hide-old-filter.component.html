@@ -1,0 +1,29 @@
+<form [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form" class="">
+    <div class="row">
+
+        <div class="col">
+            <div class="d-flex flex-column mb-1" [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+            
+                <div class="field-group d-flex flex-column mb-1 fv-row fv-plugins-icon-container">
+                   
+                    <label  for="status" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="">{{ 'hide_old' | translate }}</span>
+                    </label>
+                    
+                </div>
+
+                <mat-form-field class= "pb-0" appearance="fill" [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+
+                      <mat-select value = "all" formControlName = "hide">
+                      <mat-option value = "all">{{ 'date_all' | translate }}</mat-option>                    
+                      <mat-option value = "hide">{{ 'date_hide' | translate }}</mat-option>                    
+                      </mat-select>
+
+                </mat-form-field>
+
+            
+            </div>
+        </div>
+    </div>
+
+</form>

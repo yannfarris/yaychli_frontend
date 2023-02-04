@@ -1,0 +1,167 @@
+<div class="modal-container d-flex justify-content-between flex-column mh-700px">
+
+    <div class="modal-header justify-content-end border-bottom-0 pb-2">
+        <div (click)="closeModal()" class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+            <span [inlineSVG]="'assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-2x"></span>
+        </div>
+    </div>
+
+    <div class="modal-body h-100 scroll-y pt-2">
+        <div class="d-flex flex-column justify-content-center align-items-center mb-3">
+            <!--begin: Pic-->
+            <div class="me-7 mb-4">
+                <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                    <img *ngIf="getProfileImage()" alt="profile image" [src]="getProfileImage()" />
+                    <span *ngIf="!getProfileImage()" class="symbol-label fs-1 big-text font-weight-bold bg-light text-black">
+                        {{ user$.name.substring(0,1) | uppercase }}</span>
+                </div>
+
+            </div>
+       
+        </div>
+
+        <div class="separator my-10"></div>
+
+        <div class="row mb-3 w-100" bis_skin_checked="1"  [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <!--begin::Label-->
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'general.name' | translate }}</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2">{{ user$.name }}</label>
+            <!--end::Col-->
+        </div>
+
+        <div class="row mb-3 w-100" bis_skin_checked="1"  [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <!--begin::Label-->
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.account_type' | translate }}</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'student'">{{ 'user.student' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'parents'">{{ 'user.parents' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'teacher'">{{ 'user.teacher' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'accountant'">{{ 'user.accountant' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'seller'">{{ 'user.seller' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'guard'">{{ 'user.guard' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'admin'">{{ 'general.admin' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'super_admin'">{{ 'general.super_admin' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'mega_admin'">{{ 'general.mega_admin' | translate }}</label>
+
+        </div>
+
+        <div *ngIf="user$.register_no" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.register_no' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2">{{ user$.register_no }}</label>
+        </div>
+
+        <div *ngIf="user$.city" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.city' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.city }}</label>
+        </div>
+        <div *ngIf="user$.address" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.address' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.address }}</label>
+        </div>
+        <div *ngIf="user$.gender" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.gender' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.gender }}</label>
+        </div>
+        <div *ngIf="user$.seat_no" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.seat_no' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.seat_no }}</label>
+        </div>
+        <div *ngIf="user$.qualification" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.qualification' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.qualification }}</label>
+        </div>
+        <div *ngIf="user$.experience" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.experience' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.experience }}</label>
+        </div>
+
+        <div class="row mb-3 w-100" bis_skin_checked="1"  [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <!--begin::Label-->
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'auth.email' | translate }}</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.email">{{ user$.email }}</label>
+
+            <!--end::Col-->
+        </div>
+
+        <div *ngIf="user$.phone" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <!--begin::Label-->
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.phone' | translate }}</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.phone">{{ user$.phone }}</label>
+
+        </div>
+
+        <div *ngIf="user$.joining_date" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <!--begin::Label-->
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.joining_date' | translate }}</label>
+
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.joining_date">{{ user$.joining_date | date: 'dd/MM/yyyy'  }}</label>
+
+            <!--end::Col-->
+        </div>
+
+        <div *ngIf="user$.date_of_birth" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.date_of_birth' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.date_of_birth">{{ user$.date_of_birth | date: 'dd/MM/yyyy'  }}</label>
+        </div>
+
+        <div *ngIf="user$.salary" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.salary' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.salary }}</label>
+        </div>
+        
+        <div *ngIf="user$.blood_group" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.blood_group' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.blood_group }}</label>
+        </div>
+        <div *ngIf="user$.emergency_contact_name" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.emergency_contact_name' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.emergency_contact_name }}</label>
+        </div>
+        <div *ngIf="user$.emergency_contact_phone" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.emergency_contact_phone' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.emergency_contact_phone }}</label>
+        </div>
+        <div *ngIf="user$.weight" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.weight' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.weight }}</label>
+        </div>
+        <div *ngIf="user$.height" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.height' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.height }}</label>
+        </div>
+        <div *ngIf="user$.allergic_history" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.allergic_history' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.allergic_history }}</label>
+        </div>
+        <div *ngIf="user$.clinical_history" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.clinical_history' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.clinical_history }}</label>
+        </div>
+        <div *ngIf="user$.previous_school_name" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.previous_school_name' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.previous_school_name }}</label>
+        </div>
+        <div *ngIf="user$.previous_school_name" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.previous_school_name' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.previous_school_name }}</label>
+        </div>
+        <div *ngIf="user$.note" class="row mb-3 w-100" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'user.note' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2 text-capitalize">{{ user$.note }}</label>
+        </div>
+
+
+
+    </div>
+
+
+
+</div>

@@ -1,0 +1,68 @@
+
+
+<!-- NOTIFICATIONS -->
+ <!-- <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+  <div
+    class="btn btn-icon btn-active-light-primary position-relative"
+    [ngClass]="toolbarButtonHeightClass"
+    data-kt-menu-trigger="click"
+    data-kt-menu-attach="parent"
+    data-kt-menu-placement="bottom-end"
+    data-kt-menu-flip="bottom"
+  >`
+    <span
+      [inlineSVG]="'./assets/media/icons/duotune/general/gen022.svg'"
+      class="svg-icon"
+      [ngClass]="toolbarButtonIconSizeClass"
+    ></span>
+  </div>
+  <app-notifications-inner></app-notifications-inner>
+</div> -->
+
+<!-- Quick links -->
+<!-- <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+  <div
+    class="btn btn-icon btn-active-light-primary"
+    [ngClass]="toolbarButtonHeightClass"
+    data-kt-menu-trigger="click"
+    data-kt-menu-attach="parent"
+    data-kt-menu-placement="bottom-end"
+    data-kt-menu-flip="bottom"
+  >
+    <span
+      [inlineSVG]="'./assets/media/icons/duotune/general/gen025.svg'"
+      class="svg-icon"
+      [ngClass]="toolbarButtonIconSizeClass"
+    ></span>
+  </div>
+  <app-quick-links-inner></app-quick-links-inner>
+</div> -->
+
+
+<!-- begin::User -->
+<div
+  class="d-flex align-items-center"
+  [ngClass]="toolbarButtonMarginClass"
+  id="kt_header_user_menu_toggle"
+>
+
+<h3 *ngIf="!role.isMegaAdmin()" class="fs-6 fw-bold bg-primary text-white px-4 py-2 mx-3 rounded-1 m-0">{{ auth.currentUserValue.branch_name }}</h3>
+<h3 *ngIf="role.isMegaAdmin()" class="fs-6 fw-bold bg-primary text-white px-4 py-2 mx-3 rounded-1 m-0">{{ 'app_manage' | translate }}</h3>
+
+  <!-- begin::Toggle -->
+  <div
+    class="cursor-pointer symbol"
+    [ngClass]="toolbarUserAvatarHeightClass"
+    data-kt-menu-trigger="click"
+    data-kt-menu-attach="parent"
+    data-kt-menu-placement="bottom-end"
+    data-kt-menu-flip="bottom"
+  >
+    <img *ngIf="getProfileImage()" alt="Logo" [src]="getProfileImage()" />
+    <span *ngIf="!getProfileImage()" class="symbol-label fs-3 font-weight-bold bg-gray text-black">
+      {{ (auth.currentUserSubject | async).name.substring(0,1) | uppercase }}</span>
+  </div>
+  <!-- end::Toggle  -->
+  <app-user-inner></app-user-inner>
+</div>
+<!-- end::User -->

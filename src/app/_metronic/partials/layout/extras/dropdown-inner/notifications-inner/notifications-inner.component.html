@@ -1,0 +1,70 @@
+<div
+  class="d-flex flex-column bgi-no-repeat rounded-top"
+  [style.background-image]="'url(./assets/media/misc/pattern-1.jpg)'"
+>
+
+  <div class="text-white fw-bold px-9 my-6" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}"> 
+    <span class="fs-2">{{ 'notify.title' | translate }}</span>
+  </div>
+
+
+</div>
+
+<div class="tab-content">
+  <div *ngIf="(items | async).length > 0">
+    <div class="scroll-y mh-325px my-5 px-8">
+      <div *ngFor="let alert of alerts" class="d-flex flex-stack py-4">
+        <div class="d-flex align-items-center">
+          <div class="symbol symbol-35px me-4">
+            <span class="symbol-label" [ngClass]="'bg-light-' + alert.state">
+              <span
+                [inlineSVG]="'./assets/media/' + alert.icon"
+                class="svg-icon svg-icon-2"
+                [ngClass]="'svg-icon-' + alert.state"
+              ></span>
+            </span>
+          </div>
+
+          <div class="mb-0 me-2">
+            <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">
+              {{ alert.title }}
+            </a>
+            <div class="text-gray-400 fs-7">{{ alert.description }}</div>
+          </div>
+        </div>
+
+        <span class="badge badge-light fs-8">{{ alert.time }}</span>
+      </div>
+    </div>
+
+    <div class="py-3 text-center border-top">
+      <a
+        routerLink="/crafted/pages/profile"
+        class="btn btn-color-gray-600 btn-active-color-primary"
+      >
+        View All
+        <span
+          [inlineSVG]="'./assets/media/icons/duotune/arrows/arr064.svg'"
+          class="svg-icon svg-icon-5"
+        ></span>
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="(items | async).length <=0">
+    <div class="d-flex flex-column px-9">
+      <div class="pt-10 pb-0">
+        <h3 class="text-dark text-center fw-bold">{{ 'notify.no_data' | translate }}</h3>
+      </div>
+
+      <div class="text-center px-4">
+        <img
+          class="mw-100 mh-200px"
+          alt="metronic"
+          src="./assets/media/illustrations/sketchy-1/1.png"
+        />
+      </div>
+    </div>
+  </div>
+
+</div>

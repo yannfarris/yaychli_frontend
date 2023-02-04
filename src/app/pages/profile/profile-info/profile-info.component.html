@@ -1,0 +1,57 @@
+<div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+    <!--begin::Card header-->
+    <div class="card-header cursor-pointer" [ngClass]="(settings.currentLang | async) === 'ar' ? 'rtl-dir' : ''">
+        <!--begin::Card title-->
+        <div class="card-title m-0">
+        </div>
+        <!--end::Card title-->
+        <!--begin::Action-->
+        <div class = "d-flex flex-row justify-content-center align-items-center gap-5 flex-wrap">
+            <a (click) = "changePassword()" class="btn btn-light-primary align-self-center">{{ 'change_password' | translate }}</a>
+            <a (click) = "changeEmail()" class="btn btn-light-primary align-self-center">{{ 'change_email' | translate }}</a>
+            <a (click) = "changeName()" class="btn btn-light-primary align-self-center">{{ 'change_name' | translate }}</a>
+            <!-- <a  (click) = "changeProfileImage()" class="btn btn-light-primary align-self-center">{{ 'general.change_profile_image' | translate }}</a> -->
+
+        </div>
+      
+        <!--end::Action-->
+    </div>
+
+    <div class="card-body p-9" [ngClass]="(settings.currentLang | async) === 'ar' ? 'rtl-dir' : ''">
+        
+        <div class="row mb-3 w-100" bis_skin_checked="1"  [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <!--begin::Label-->
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'name' | translate }}</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2">{{ user$.name }}</label>
+            <!--end::Col-->
+        </div>
+
+        <div class="row mb-3 w-100" bis_skin_checked="1"  [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <!--begin::Label-->
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'account_type' | translate }}</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+         
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'employee'">{{ 'employee' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'mega_admin'">{{ 'mega_admin' | translate }}</label>
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.account_type === 'admin'">{{ 'admin' | translate }}</label>
+
+        </div>
+
+
+        <div class="row mb-3 w-100" bis_skin_checked="1"  [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <!--begin::Label-->
+            <label class="col-4 fw-bold text-dark fs-3 info_field">{{ 'email' | translate }}</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+
+            <label class="col-8 fw-bold text-dark fs-3 info_field info_field2" *ngIf="user$.email">{{ user$.email }}</label>
+
+            <!--end::Col-->
+        </div>
+  
+    </div>
+    <!--end::Card body-->
+</div>

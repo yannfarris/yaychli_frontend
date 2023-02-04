@@ -1,0 +1,17 @@
+<ngx-dropzone [accept] = "acceptableFileExtensions()" [multiple] = "true" (change)="onSelect($event)">
+                
+    <ngx-dropzone-label>{{ 'general.drop_file_here' | translate }}</ngx-dropzone-label>
+    
+    <div *ngFor="let f of media.files">
+        <ngx-dropzone-image-preview *ngIf="isImage(f.type)" [removable]="true" (removed)="onRemove(f)" ngProjectAs="ngx-dropzone-preview"  [file]="f"></ngx-dropzone-image-preview>
+    </div>
+
+    <div *ngFor="let f of media.files">
+        <ngx-dropzone-preview *ngIf="!isImage(f.type)" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+    </div>
+
+
+</ngx-dropzone>
+<p class=" fs-6 mt-3">{{'general.max_file_size' | translate }}</p>

@@ -1,0 +1,62 @@
+app-no-data .no-notifaction{
+    height: 500px !important;
+}
+
+.box_image{
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    height: 160px;
+    box-shadow: 0px 19px 16px 0px transparent;
+    transition: all 0.3s;
+}
+
+.box-image:hover{
+    box-shadow: 0px 19px 16px 0px #00000030;
+
+}
+
+
+.image_option{
+    position: absolute;
+    background: white;
+    transform: translate(0px, 161px);
+    transition: 0.3s;
+    border-radius: 0px 20px 0px 0px;
+    overflow: hidden;
+}
+.main_card:hover{
+    
+    .image_option{
+
+        transform: translate(0px, 130px);
+    }
+}
+
+
+@media screen and (max-width:700px) {
+    .image_option{
+
+        transform: translate(0px, 130px) !important;
+    }
+}
+
+
+.big-m{
+    margin-bottom: 100px !important;
+}
+
+.active{
+    border: 4px #009ef7 solid !important;
+}
+
+.inactive{
+    border: 4px transparent solid;
+}
+
+.active_btn{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 5px;
+}

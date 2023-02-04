@@ -1,0 +1,264 @@
+<div class="modal-container d-flex justify-content-between flex-column">
+
+    <div class="modal-header justify-content-end border-bottom-0 pb-2">
+        <div (click) = "closeModal()" class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+            <span [inlineSVG] = "'assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-2x"></span>
+        </div>
+    </div>
+
+    <div class="modal-body h-100 scroll-y pt-2">
+
+        <div class="mb-6 text-center">
+            <h1 class="mb-3">{{ 'school.new_title' | translate }}</h1>
+
+            <div class="text-muted fw-bold fs-5 text-gray-700">
+                <span>{{ 'school.new_sub' | translate }}</span>
+            </div>
+        </div>
+
+        <form   [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form" class="">
+         
+                <!-- form field -->
+
+               <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                <!--begin::Label-->
+                <label  for="max_students" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                    <span class="required fw-bolder">{{ 'general.max_students' | translate }}</span>
+                </label>
+                <!--end::Label-->
+
+                <mat-form-field appearance="fill" class = " w-100">
+
+                    <input class = "py-2"  maxlength="40" placeholder ="{{'general.fill_data_here' | translate}}" formControlName="max_students" id="max_students" type="number" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" matInput >                        
+               
+                </mat-form-field>
+                <mat-error *ngIf="(auth.currentUserSubject | async)!.max_students" class="fs-6 text-dark">{{ 'general.max_students_remaining' | translate: { value: (auth.currentUserSubject | async)!.max_students} }}</mat-error>
+
+            
+            </div>
+
+            <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container w-100">
+                <!--begin::Label-->
+                <label for="due_date" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                    <span class="required" translate="school.due_date"></span>
+                </label>
+                <!--end::Label-->
+
+                <mat-form-field appearance="fill" class = "w-100">
+                    <input class = "fw-bold"  formControlName="due_date" matInput [matDatepicker]="due_date">
+                    <mat-datepicker-toggle matSuffix [for]="due_date"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi = true  #due_date ></mat-datepicker>
+                    <mat-error class=" fs-6" *ngIf="form.get('due_date')?.hasError('required') && form.get('due_date')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+
+                  </mat-form-field>
+            
+            </div>
+
+
+                 <!-- form field -->
+
+                 <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label  for="name" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="required fw-bolder">{{ 'general.name' | translate }}</span>
+                    </label>
+                    <!--end::Label-->
+
+                    <mat-form-field appearance="fill" class = " w-100">
+
+                        <input class = "py-2"  maxlength="140" placeholder ="{{'general.fill_data_here' | translate}}" formControlName="name" id="name" type="text" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" matInput >                        
+                        <mat-error class=" fs-6" *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+                   
+                    </mat-form-field>
+                
+                </div>
+
+                
+                <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+
+                    <label  for="currency" class="d-flex align-items-center fs-6 fw-bold mb-2 required">
+                        <span class="fw-bolder">{{ 'general.currency' | translate }}</span>
+                    </label>
+
+                    <mat-form-field appearance="fill" class = " select">
+                    
+                        <mat-label *ngIf="form.get('currency').value === ''">{{ 'general.currency' | translate }}</mat-label>
+
+                        <mat-select  formControlName="currency" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();">
+                            <mat-option value = "iqd" >IQD</mat-option>
+                            <mat-option value = "usd" >USD</mat-option>
+                        </mat-select>
+                        
+                        <mat-error class=" fs-6" *ngIf="form.get('currency')?.hasError('required') && form.get('currency')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+                    </mat-form-field>
+
+                
+                </div>
+                 <!-- form field -->
+
+                 <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label  for="email" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="required fw-bolder">{{ 'general.email' | translate }}</span>
+                    </label>
+                    <!--end::Label-->
+
+                    <mat-form-field appearance="fill" class = " w-100">
+
+                        <input class = "py-2"  maxlength="40" placeholder ="{{'general.fill_data_here' | translate}}" formControlName="email" id="email" type="text" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" matInput >                        
+                        <mat-error class=" fs-6" *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+                        <mat-error class=" fs-6" *ngIf="form.get('email')?.hasError('email') && form.get('email')?.touched">{{ 'auth.type_correct_email' | translate }}</mat-error>
+                   
+                    </mat-form-field>
+                
+                </div>
+                
+                 <!-- form field -->
+
+                 <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label  for="phone" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="fw-bolder">{{ 'general.phone' | translate }}</span>
+                    </label>
+                    <!--end::Label-->
+
+                    <mat-form-field appearance="fill" class = " w-100">
+
+                        <input class = "py-2"  maxlength="40" placeholder ="{{'general.fill_data_here' | translate}}" formControlName="phone" id="phone" type="number" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" matInput >                        
+                        <mat-error class=" fs-6" *ngIf="form.get('phone')?.hasError('required') && form.get('phone')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+                   
+                    </mat-form-field>
+                
+                </div>
+                 <!-- form field -->
+
+                 <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label  for="address" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="fw-bolder">{{ 'general.address' | translate }}</span>
+                    </label>
+                    <!--end::Label-->
+
+                    <mat-form-field appearance="fill" class = " w-100">
+
+                        <input class = "py-2"  maxlength="40" placeholder ="{{'general.fill_data_here' | translate}}" formControlName="address" id="address" type="text" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" matInput >                        
+                        <mat-error class=" fs-6" *ngIf="form.get('address')?.hasError('required') && form.get('address')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+                   
+                    </mat-form-field>
+                
+                </div>
+           
+                 <!-- form field -->
+
+                 <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label  for="facebook" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="fw-bolder">{{ 'general.facebook' | translate }}</span>
+                    </label>
+                    <!--end::Label-->
+
+                    <mat-form-field appearance="fill" class = " w-100">
+
+                        <input class = "py-2"  maxlength="40" placeholder ="{{'general.fill_data_here' | translate}}" formControlName="facebook" id="facebook" type="text" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" matInput >                        
+                        <mat-error class=" fs-6" *ngIf="form.get('facebook')?.hasError('required') && form.get('facebook')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+                   
+                    </mat-form-field>
+                
+                </div>
+                 <!-- form field -->
+
+                 <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label  for="instagram" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="fw-bolder">{{ 'general.instagram' | translate }}</span>
+                    </label>
+                    <!--end::Label-->
+
+                    <mat-form-field appearance="fill" class = " w-100">
+
+                        <input class = "py-2"  maxlength="40" placeholder ="{{'general.fill_data_here' | translate}}" formControlName="instagram" id="instagram" type="text" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" matInput >                        
+                        <mat-error class=" fs-6" *ngIf="form.get('instagram')?.hasError('required') && form.get('instagram')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+                   
+                    </mat-form-field>
+                
+                </div>
+    
+
+                 <!-- form field -->
+
+                 <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                    <!--begin::Label-->
+                    <label  for="twitter" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="fw-bolder">{{ 'general.twitter' | translate }}</span>
+                    </label>
+                    <!--end::Label-->
+
+                    <mat-form-field appearance="fill" class = " w-100">
+
+                        <input class = "py-2"  maxlength="40" placeholder ="{{'general.fill_data_here' | translate}}" formControlName="twitter" id="twitter" type="text" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" matInput >                        
+                        <mat-error class=" fs-6" *ngIf="form.get('twitter')?.hasError('required') && form.get('twitter')?.touched">{{ 'general.this_field_required' | translate }}</mat-error>
+                   
+                    </mat-form-field>
+                
+                </div>
+
+                             <!-- form field -->
+
+                             <div class="d-flex flex-stack mb-8">
+                                <!--begin::Label-->
+                                <div class="me-5">
+                                    <label class="fs-6 fw-bold" translate="general.active_ads"></label>
+                                </div>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <input (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();" formControlName="ads_status" id="ads_status" class="form-check-input" type="checkbox" checked="checked">
+                                </label>
+                                
+                                <!--end::Switch-->
+                            </div>
+
+                               <!-- form field -->
+
+                               <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+                                <!--begin::Label-->
+                                <label for="note" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                    <span class="fw-bolder">{{ 'general.note' | translate }}</span>
+                                </label>
+                                <!--end::Label-->
+            
+                                <mat-form-field appearance="fill">
+                                    <textarea
+                                    cdkTextareaAutosize
+                                    #autosize="cdkTextareaAutosize"
+                                    cdkAutosizeMinRows="5"
+                                    cdkAutosizeMaxRows="15"
+                                    (keydown.shift.enter)="$event.preventDefault();" formControlName="note" id="note" matInput placeholder ="{{'general.fill_data_here' | translate}}"></textarea>
+                                  </mat-form-field>
+                            
+                            </div>
+            
+                            <!-- end form field -->
+                
+
+                      
+                          
+         </form>
+
+    </div>
+
+
+    <div class="modal-footer justify-content-center border-top-0">
+
+        <div class="text-center">
+            <button matRipple class="btn btn-light me-3" (click) = "closeModal()">{{ 'general.cancel' | translate }}</button>
+            
+            <button matRipple [disabled] = "!form.valid || (settings.isLoading | async).state === 'on'" (click) = "save()" class="btn btn-primary fw-bolder">
+                <span *ngIf="(settings.isLoading | async).state === 'on'" class="spinner-border spinner-border-sm align-middle mx-3"></span>
+                <span class="indicator-label">{{ 'general.submit' | translate }}</span>
+            </button>
+
+        </div>
+    </div>
+
+</div>

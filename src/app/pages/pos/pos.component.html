@@ -1,0 +1,137 @@
+<app-search></app-search>
+
+<ngx-content-loading *ngIf="(settings.isContentLoading | async) === true" [width]="200" rtl="true"
+    [primaryColor]="'#ffffff'">
+    <svg:g ngx-list-preset></svg:g>
+</ngx-content-loading>
+
+<app-no-data *ngIf="(settings.isContentLoading | async) === false && (items | async).length <= 0"></app-no-data>
+
+
+<div *ngIf="order.length > 0" class="cart card card-flush d-flex flex-column flex-row-fluid justify-content-center">
+
+    <span (click) = "expandCart()" type="button" class="close_cart btn btn-sm btn-icon btn-light-danger btn-active-light-danger mb-2 ms-auto" >
+
+        <i class="fa-solid fa-xmark"></i>                                                    
+    </span>
+
+
+    <div *ngIf="(user | async) !== ''" class="expand position-absolute" (click) = "expandCart()">
+        <i class="fa-solid fa-arrow-left"></i>
+    </div>
+
+    <div class="items card-body scroll py-0">
+
+        <div (click)="doubleClickRemove(item.id)" class="cursor-pointer item d-flex align-items-sm-center my-5" *ngFor="let item of order">
+
+            <div class="symbol symbol-50px user-select-none me-4">
+                <span class="bg-white symbol-label d-flex flex-row justify-content-center align-content-center">
+                   <span class=" fw-bold h-50 align-self-center bold fs-3">{{ item.quantity }}</span>
+                </span>
+            </div>
+
+            <div class="d-flex align-items-center flex-row-fluid flex-wrap user-select-none ">
+                <div class="flex-grow-1 me-2">
+                    <div class = ' d-flex flex-row justify-content-between align-items-center'>
+                        <h1 class="text-dark fs-5 fw-bolder m-0" >{{ item.name | slice:0:25 }}</h1>
+                        <span class="badge badge-white min-w-100px align-items-center fw-bolder my-2 fs-6 d-flex flex-row justify-content-center align-content-center ">
+                            <span class="text-dark">{{ formatnumber(item.total_price, 'en-US', (auth.currentUserSubject | async).school?.currency !== 'USD' ? '1.0-0' : '1.2-2') }} <span class = " currency text-uppercase">{{ (auth.currentUserSubject | async).school?.currency }}</span></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div  class="separator my-4"></div>
+
+
+    <div class="price-info px-10 mt-1 mb-7"  [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}" >
+
+
+        <div class="d-flex fs-3 align-items-center mb-3">
+            <div class="bullet bg-primary " [ngClass]="(settings.currentLang | async) === 'ar' ? 'ms-3': 'me-3'"></div>
+            <div class="text-gray-900 fw-bold text-capitalize" translate="pos.total_price"></div>
+            <div class="fs-2 fw-bolder text-gray-800" [ngClass]="(settings.currentLang | async) === 'ar' ? 'me-auto': 'ms-auto'">{{ formatnumber((totalPrice | async), 'en-US', (auth.currentUserSubject | async).school?.currency !== 'USD' ? '1.0-0' : '1.2-2') }} <span class = " currency text-uppercase">{{ (auth.currentUserSubject | async).school?.currency }}</span></div>
+        </div>
+        <div class="d-flex fs-3 align-items-center mb-3">
+            <div class="bullet bg-primary " [ngClass]="(settings.currentLang | async) === 'ar' ? 'ms-3': 'me-3'"></div>
+            <div class="text-gray-900 fw-bold text-capitalize" translate="pos.order_count"></div>
+            <div class="fs-2 fw-bolder text-gray-800" [ngClass]="(settings.currentLang | async) === 'ar' ? 'me-auto': 'ms-auto'">{{ getTotalQuantity() }}</div>
+        </div>
+        <div class="d-flex fs-3 align-items-center mb-3">
+            <div class="bullet bg-primary " [ngClass]="(settings.currentLang | async) === 'ar' ? 'ms-3': 'me-3'"></div>
+            <div class="text-gray-900 fw-bold text-capitalize" translate="general.name_user"></div>
+            <div class="fs-2 fw-bolder text-gray-800" [ngClass]="(settings.currentLang | async) === 'ar' ? 'me-auto': 'ms-auto'">{{ (user | async).name }}</div>
+        </div>
+
+    </div>
+
+    <div  class="separator my-4"></div>
+
+    <div class="cart-action">
+        <button matRipple class="btn btn-light-success fw-bolder" (click) = "newOrder()">{{ 'pos.save_order' | translate}}</button>
+        <button matRipple class="btn btn-light-danger fw-bolder" (click) = "clear()">{{ 'pos.delete_order' | translate}}</button>
+    </div>
+
+</div>
+
+<div (click) = "expandNote()" *ngIf="(user | async).buy_note" [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}" class="d-flex flex-stack px-6 w-100 order-info bg-warning">
+
+    <p class=" fs-4">{{ (user | async).buy_note }}</p>
+</div>
+
+<div class="wrapp">
+    
+<div class="float-btn">
+
+    <a *ngIf="order.length > 0" class="btn-fl btn btn-icon btn-success" (click) = "newOrder()"><i class="fa-solid fa-circle-check"></i></a>
+    <a *ngIf="(user | async) === ''" class="btn-fl btn btn-icon btn-white" (click) = "getUser()"><i class="fa-solid fa-user"></i></a>
+    <a *ngIf="(user | async) !== ''" class="btn-fl btn btn-icon btn-danger" (click) = "clear()"><i class="fa-solid fa-trash"></i></a>
+
+</div>
+
+<div *ngIf="(settings.isContentLoading | async) === false && (items | async).length > 0" class="full-width m-0 pos-item-grid mb_large">
+
+    <div *ngFor="let item of (items | async)" class="cursor-pointer mh-250px h-250px shadow-u position-relative">
+        <div [ngClass]="{'pos-product': isSelected(item.id)}" matRipple class=" card h-100 card-flush" (click)="handleSelected(item)">
+
+            <div class="card-body d-flex flex-center">
+                <button type="button" class="btn btn-clear d-flex flex-column flex-center">
+                    <div class="fw-bolder fs-3 text-gray-900 text-capitalize">{{ item.name }}</div>
+                    <div class="price fw-bolder fs-4 text-gray-800 text-capitalize">{{ formatnumber(item.price, 'en-US', (auth.currentUserSubject | async).school?.currency !== 'USD' ? '1.0-0' : '1.2-2') }} <span class = " currency text-uppercase">{{ (auth.currentUserSubject | async).school?.currency }}</span></div>
+                </button>
+            </div>
+
+        </div>
+
+        <div *ngIf="isSelected(item.id)"
+            class="item-info user-select-none position-absolute top-0 my-0 mx-0 d-flex flex-column justify-content-between align-items-center h-100">
+
+            <a (click)="add(item.id)" class="m-3  btn btn-icon btn-light-success">
+                <i class="fa-solid fa-arrow-up"></i>
+            </a>
+
+            <h3>{{ getQuantity(item.id) }}</h3>
+
+            <a (click)="min(item.id)" class="m-3  btn btn-icon btn-light-danger">
+                <i class="fa-solid fa-arrow-down"></i>
+
+            </a>
+        </div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+<div class="pag_container_fixed">
+    <app-pagination class="pag_container_fixed2"
+        *ngIf="(items | async).length > 0 && (settings.isContentLoading | async) === false"></app-pagination>
+
+</div>

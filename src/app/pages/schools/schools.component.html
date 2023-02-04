@@ -1,0 +1,47 @@
+<app-search></app-search>
+
+<ngx-content-loading *ngIf="(settings.isContentLoading | async) === true" [width]="200" rtl="true" [primaryColor]="'#ffffff'">
+    <svg:g ngx-list-preset></svg:g>
+</ngx-content-loading>
+
+
+<app-no-data *ngIf="(settings.isContentLoading | async) === false && (items | async).length <= 0"></app-no-data>
+
+
+<div class="row g-6 g-xl-9" *ngIf="(settings.isContentLoading | async) === false && (items | async).length > 0">
+    <div class="col-md-6 col-xl-4" *ngFor="let item of (items | async)">
+        <app-card2
+        [icon]="item.logo"
+        [badgeColor]="getStatusColor(item)"
+        [status]="getStatus(item)"
+        [statusId]="item.status"
+        [statusColor]="getStatusColor(item)"
+        [title]="item.name"
+        [date]="item.start_date"
+        [dueDate]="item.due_date"
+        [progress]="item.max_students"
+        [init_progress]="item.init_max_students"
+        [description]="item.address"
+        [email] = "item.email"
+        [facebook] = "item.facebook"
+        [instagram] = "item.instagram"
+        [twitter] = "item.twitter"
+        [phone] = "item.phone"
+        [remaningDays] = 'item.remaining_days'
+        [persent] = 'item.remaining_days_persent'
+        [usedDays] = 'item.used_days'
+        [id] = 'item.id'
+        [adsStatus] = 'item.ads_status'
+        [maxSize] = 'item.max_size'
+      ></app-card2>
+
+      
+
+    </div>
+  
+  </div>
+
+  <div class="pag_container_fixed">
+    <app-pagination class = "pag_container_fixed2" *ngIf="(items | async).length > 0 && (settings.isContentLoading | async) === false"></app-pagination>
+
+</div>

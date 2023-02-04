@@ -1,0 +1,151 @@
+<a class="card border border-2 border-gray-300 border-hover position-relative">
+
+  <div [matMenuTriggerFor]="headerMenu" class="btn btn-icon btn-sm btn-active-light-primary s-menu">
+    <span [inlineSVG]="'assets/media/icons/duotune/general/gen053.svg'" class="svg-icon svg-icon-1 p-4">
+
+    </span>
+  </div>
+
+  <!-- *ngIf="statusId === 'active'"  -->
+
+  <mat-menu #headerMenu="matMenu">
+
+    <button (click)="changeMaxStudent()" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'school.change_max_student' | translate }}</span>
+    </button>
+
+    <button (click)="changeMaxSize()" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'school.change_max_size' | translate }}</span>
+    </button>
+
+    <button *ngIf="statusId === 'inactive'" (click)="changeState(id, 'inactive')" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'general.activate' | translate }}</span>
+    </button>
+
+    <button *ngIf="statusId === 'active'" (click)="changeState(id,'active')" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'general.deactivate' | translate }}</span>
+    </button>
+
+    <button *ngIf="adsStatus === 'active'" (click)="changeAdsStatus(id,'active')" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'ads.deactivate' | translate }}</span>
+    </button>
+
+    <button *ngIf="adsStatus === 'inactive'" (click)="changeAdsStatus(id,'inactive')" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'ads.activate' | translate }}</span>
+    </button>
+
+
+    <button (click)="newDueDate()" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'general.new_due_date' | translate }}</span>
+    </button>
+
+    <button (click)="addNewAdmin(id)" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'general.add_new_admin' | translate }}</span>
+    </button>
+
+    <button (click)="delete(id)" mat-menu-item
+      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+      <span>{{ 'general.delete' | translate }}</span>
+    </button>
+
+
+
+  </mat-menu>
+
+
+  <div class="card-header border-0 pt-9" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+
+    <div class="card-title m-0">
+      <div class="symbol symbol-50px w-50px bg-light">
+        <img *ngIf="icon" [src]="getImage()" alt="card2" class="p-3" />
+        <span *ngIf="!icon" class="symbol-label font-size-h5 font-weight-bold bg-light text-black">
+          {{ title.substring(0,1) | uppercase }}</span>
+      </div>
+
+    </div>
+
+    <div class="card-toolbar">
+      <span *ngIf="status" class="badge fw-bolder me-auto px-4 py-3" [ngClass]="'badge-light-' + badgeColor">
+        {{ status }}
+      </span>
+    </div>
+  </div>
+
+  <div class="card-body p-9" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+    <div class="fs-3 fw-bolder text-dark">{{ title | titlecase}}</div>
+
+    <p class="text-gray-700 fw-bold fs-5 mt-1 mb-7">{{ description }}</p>
+
+    <div class="d-flex flex-wrap gap-7 mb-5 justify-content-between align-content-center">
+      <div class="flex-grow-1 border border-gray-300 border-dashed rounded min-w-125px py-3 px-4">
+        <div class="fs-6 text-gray-800 fw-bolder">{{ maxSize }}</div>
+        <div class="fw-bold text-gray-700">{{ 'school.max_size' | translate }}</div>
+      </div>
+
+      <div class=" d-flex flex-row w-100 gap-5">
+        <div class="flex-grow-1 border border-gray-300 border-dashed rounded min-w-125px py-3 px-4">
+          <div class="fs-6 text-gray-800 fw-bolder">{{ date | date: 'dd/MM/yyyy'}}</div>
+          <div class="fw-bold text-gray-700">{{ 'general.added_date' | translate }}</div>
+        </div>
+  
+        <div class="flex-grow-1  border border-gray-300 border-dashed rounded min-w-125px py-3 px-4">
+          <div class="fs-6 text-gray-800 fw-bolder">{{ dueDate | date: 'dd/MM/yyyy'}}</div>
+          <div class="fw-bold text-gray-700">{{ 'general.due_date' | translate }}</div>
+        </div>
+      </div>
+
+      <div class="flex-grow-1  border border-gray-300 border-dashed rounded min-w-100 py-3 px-4">
+
+        <div class="fs-6 text-gray-800 fw-bolder">{{ getNumber(progress) }}</div>
+        <div class="fw-bold text-gray-700">{{'general.max_student_remaning' | translate }}</div>
+
+        <div class="h-4px w-100 bg-light mt-5 mb-1"
+          matTooltip="{{'general.student_left' | translate:{ value: math.abs(progress) } }}">
+          <div class="progress-bar rounded h-5px" role="progressbar" [style.width.%]="getRemaningStudents()"
+            [ngClass]="getRemaningStudents() > 70 ? 'bg-danger' : 'bg-success'">
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="flex-grow-1  border border-gray-300 border-dashed rounded min-w-100 py-3 px-4">
+
+        <div class="fs-6 text-gray-800 fw-bolder">{{ remaningDays }}</div>
+        <div class="fw-bold text-gray-700">{{'general.remaning_days' | translate }}</div>
+
+        <div class="h-4px w-100 bg-light  mt-5 mb-1"
+          matTooltip="{{'general.days_remaning_persent' | translate:{ value: remaningDays } }}">
+          <div class="progress-bar rounded h-5px" role="progressbar" [style.width.%]="persent"
+            [ngClass]="persent > 70 ? 'bg-danger' : 'bg-success'">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col social_icon">
+      <i matTooltip="{{ facebook | translate }}" *ngIf="facebook" class="fa-brands fa-facebook-f"></i>
+      <i matTooltip="{{ instagram | translate }}" *ngIf="instagram" class="fa-brands fa-instagram"></i>
+      <i matTooltip="{{ twitter | translate }}" *ngIf="twitter" class="fa-brands fa-twitter"></i>
+      <i matTooltip="{{ email | translate }}" *ngIf="email" class="fa-solid fa-at"></i>
+      <i matTooltip="{{ phone | translate }}" *ngIf="phone" class="fa-solid fa-phone-flip"></i>
+      <i matTooltip="{{ 'ads.ads_is_activate' | translate }}" *ngIf="adsStatus === 'active'" class="fa-solid fa-rectangle-ad text-success"></i>
+      <i matTooltip="{{ 'ads.ads_is_deactivate' | translate }}" *ngIf="adsStatus === 'inactive'" class="fa-solid fa-rectangle-ad text-danger"></i>
+    </div>
+
+
+  </div>
+</a>
+
+<input [ngModel]="orderDate" (ngModelChange)="dateChange($event)" hidden matInput [matDatepicker]="newDate">
+<mat-datepicker touchUi #newDate startView="multi-year"></mat-datepicker>

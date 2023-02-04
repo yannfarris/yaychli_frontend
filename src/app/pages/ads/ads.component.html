@@ -1,0 +1,46 @@
+<ngx-content-loading *ngIf="(settings.isContentLoading | async) === true" [width]="200" rtl="true" [primaryColor]="'#ffffff'">
+    <svg:g ngx-list-preset></svg:g>
+</ngx-content-loading>
+
+<app-no-data *ngIf="(settings.isContentLoading | async) === false && (items | async).length <= 0"></app-no-data>
+
+
+<div class="ads-container" *ngIf="(settings.isContentLoading | async) === false">
+   
+    <div class="notify-list">
+
+        <div [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" *ngFor="let item of (items | async); let i = index" class="ads d-flex flex-row justify-content-between align-items-center rounded px-7 py-10 mb-5 bg-white shadow-large shadow">
+
+            <div class="d-flex flex-row justify-content-between align-items-center">
+          
+                <div class="fs-5 text-dark fw-bold">
+                    <span class = " user-select-none"><strong>{{ item.name }}</strong></span>
+                </div>
+
+            </div>
+
+            <div class="actions px-4">
+
+                <button (click) = "delete(item.id)" class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm me-1">
+                    <i class="fa-solid fa-trash svg-icon svg-icon-2 p-0 m-0"></i>
+                </button>
+
+                <button (click) = "deactivate(item.id)" *ngIf="item.status === 'active'" matTooltip="{{ 'general.deactivate' | translate }}" class="btn btn-icon btn-bg-light btn-color-success btn-sm me-1">
+                    <i class="fa-solid fa-circle-check svg-icon svg-icon-2 p-0 m-0"></i>
+                </button>
+
+                <button (click) = "activate(item.id)" *ngIf="item.status === 'inactive'" matTooltip="{{ 'general.activate' | translate }}" class="btn btn-icon btn-bg-light btn-color-danger btn-sm me-1">
+                    <i class="fa-solid fa-circle-minus svg-icon svg-icon-2 p-0 m-0"></i>
+                </button>
+
+                <button matTooltip="{{ 'general.show_ads_image' | translate }}" (click) = viewImage(item.media.id) class="btn btn-icon btn-bg-light btn-active-color-info btn-sm me-1">
+                    <i class="fa-solid fa-eye svg-icon svg-icon-2 p-0 m-0"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

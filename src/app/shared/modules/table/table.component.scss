@@ -1,0 +1,37 @@
+td {
+    max-width: 300px;
+}
+
+.main_t{
+    margin-bottom: 130px;
+}
+
+.action_pos{
+    position: relative;
+    left: 0;
+    background: white;
+}
+
+.td_text_container{
+    max-height: 60px;
+    overflow: hidden;
+}
+
+.td_text_container_expand{
+    max-height: 100%;
+    cursor: pointer;
+    
+}
+
+.rotate-arrow{
+    transform: rotate(180deg);
+}
+
+
+.mainText{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+

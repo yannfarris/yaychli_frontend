@@ -1,0 +1,92 @@
+<div class="branch_wrapper">
+
+    <div class="branches" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+
+    <app-no-data [ngClass]="{'sub_list4': (items | async).length <= 0}" class = "sub_list2" *ngIf="(settings.isContentLoading | async) === false && (items | async).length <= 0"></app-no-data>
+        
+        <div  *ngFor="let item of (items | async)" class="card sub_list">
+            
+            <div [ngClass]="item.type === 'final' ? 'card-header-active': 'card-header-inactive'" class="bg-light card-header align-items-center border-0 mt-0 p-3">
+                
+                <div class="d-flex">
+                    <h3 *ngIf="item.status === 'inactive'" class="fs-6 status svg-icon svg-icon-2 svg-icon-danger card-title align-items-start flex-column">{{ 'deactive' | translate }}</h3>
+                    <span *ngIf="item.note" [matTooltip]="item.note" inlineSVG="./assets/media/icons/duotune/general/gen046.svg" class="text-primary status svg-icon svg-icon-2 svg-icon-danger card-title align-items-start flex-column"></span>
+                </div>                
+          
+                <div class="card-toolbar">
+                    <!--begin::Menu-->
+                    <button type="button" class="card_menu btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary me-n3"  mat-button [matMenuTriggerFor]="menu">
+                        <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                        <span class="svg-icon svg-icon-3 svg-icon-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="5" y="5" width="5" height="5" rx="1" fill="currentColor"></rect>
+                                    <rect x="14" y="5" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"></rect>
+                                    <rect x="5" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"></rect>
+                                    <rect x="14" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"></rect>
+                                </g>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </button>
+                
+                    <mat-menu #menu="matMenu">
+                        <button (click) = "edit(item)" mat-menu-item [ngClass]="{ 'rtl-text ': (settings.currentLang | async) === 'ar'}">{{ 'edit_seat' | translate }}</button>
+                        <button *ngIf="item.type === 'final'" (click) = "changeState(item.id, 'temp')" mat-menu-item [ngClass]="{ 'rtl-text ': (settings.currentLang | async) === 'ar'}">{{ 'change_temp' | translate }}</button>
+                        <button *ngIf="item.type !== 'final'" (click) = "changeState(item.id, 'final')" mat-menu-item [ngClass]="{ 'rtl-text ': (settings.currentLang | async) === 'ar'}">{{ 'change_final' | translate }}</button>
+                        <button (click) = "delete(item.id)" mat-menu-item [ngClass]="{ 'rtl-text ': (settings.currentLang | async) === 'ar'}">{{ 'delete' | translate }}</button>
+                      </mat-menu>
+
+                </div>
+            </div>
+
+            <!--begin::Card body-->
+            <div class="card-body d-flex flex-center flex-column pt-12 p-9">
+                <!--begin::Avatar-->
+                <div class="round symbol symbol-65px symbol-square mb-5">
+                    <span class="symbol-label fs-2x fw-semibold text-primary bg-light-primary">{{ item?.seat_code | uppercase }}</span>
+                    
+                </div>
+
+                <div class=" d-flex flex-center flex-wrap w-100">
+                    <!--begin::Stats-->
+                    
+                    <div (click) = "customerInfo(item)" class="cursor-pointer bg-hover-light border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'customer_name2' | translate }} <span class="fw-bolder text-gray-900">{{ item?.customer.name }}</span></div>
+                    </div>
+                    <div class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'seat_number' | translate }} <span class="fw-bolder text-gray-900">{{ item?.seat_code }}</span></div>
+                    </div>
+
+                    <div class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'from2' | translate }} <span class="fw-bolder text-gray-900">{{ item?.trip.from | uppercase }}</span></div>
+                    </div>
+                    <div class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'to2' | translate }} <span class="fw-bolder text-gray-900">{{ item?.trip.to | uppercase }}</span></div>
+                    </div>
+                    <div class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'dep_date' | translate }} <span class="fw-bolder text-gray-900">{{ item?.trip.departure | date: 'dd/MM/yyyy' | uppercase }}</span></div>
+                    </div>
+                    <div class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'dep_time' | translate }} <span class="fw-bolder text-gray-900">{{ item?.trip.departure | date: 'hh:mm a' | uppercase }}</span></div>
+                    </div>
+            
+                    <div class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'branch_name2' | translate }} <span class="fw-bolder text-gray-900">{{ item?.branch?.name }}</span></div>
+                    </div>
+                    <div class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'bus_number2' | translate }} <span class="fw-bolder text-gray-900">{{ item?.trip?.bus.name }}</span></div>
+                    </div>
+                    <div class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3 w-100">
+                        <div  class="fw-bold text-gray-600">{{ 'trip_code' | translate }} <span class="fw-bolder text-gray-900">{{ item?.trip?.code }}</span></div>
+                    </div>
+                    
+
+                </div>
+            </div>
+            <!--end::Card body-->
+        </div>
+    </div>
+         
+
+</div>

@@ -1,0 +1,23 @@
+<div class=" py-5 px-5">
+
+    <div class="px-4 py-2">
+        <div class="fs-4 text-dark fw-bolder text-center user-select-none" translate="general.filter_option"></div>
+    </div>
+
+    <div class="separator border-gray-200"></div>
+    
+    <div class="mb-4 filters-container mh-250px scroll-y overflow-x-hidden px-2">
+        <app-status-filter *ngIf="(settings.pageSettings | async).pageType !== 'trip'"></app-status-filter>
+        <app-date-filter></app-date-filter>
+        <app-sort-filter></app-sort-filter>
+        <app-account-type-filter *ngIf="role.isMegaAdmin()"></app-account-type-filter>
+        <app-hide-old-filter *ngIf="role.isMegaAdmin() && (settings.pageSettings | async).pageType === 'trip'"></app-hide-old-filter>
+    </div>
+    
+    <div class="d-flex justify-content-center">
+        <button [disabled] = "(settings.isContentLoading | async) === true" (click) = "reset()"  matRipple class="btn btn-light btn-active-light-primary me-2">{{ 'general.resetFilters' | translate }}</button>
+        <button [disabled] = "(settings.isContentLoading | async) === true" (click) = "apply()"  matRipple class="btn btn-primary">{{ 'general.apply' | translate }}</button>
+    </div>
+
+</div>
+

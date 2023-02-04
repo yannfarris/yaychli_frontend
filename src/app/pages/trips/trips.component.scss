@@ -1,0 +1,144 @@
+.trip {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+  height: 10rem;
+
+  .main {
+    flex: 3;
+    height: 100%;
+    border-radius: 10px 20px 20px 10px !important;
+
+    .info {
+      width: 100%;
+      padding: 10px 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      color: lighten(black, 40%);
+
+      .bus {
+        flex: 1;
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .line {
+          width: 85%;
+          border: 6px #00000045 dotted;
+          position: absolute;
+          height: 1px;
+          border-bottom: navajowhite;
+        }
+
+        .icon {
+            font-size: 2rem;
+            color: var(--bs-active-primary);
+            background: white;
+            padding: 10px;
+            z-index: 2;
+            border-radius: 6px;
+
+        }
+
+        .time_take{
+            position: absolute;
+            bottom: -31px;
+            font-size: 1.1rem;
+        }
+
+      }
+
+      .dest {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+      }
+
+      .time {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: black;
+      }
+    }
+  }
+
+  .price {
+    flex: 1;
+    height: 100%;
+
+    border-radius: 20px 10px 10px 20px !important;
+
+    overflow: hidden;
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-body {
+      background: white;
+      border: none;
+      border-left: 2px #00000021 dotted;
+    }
+  }
+}
+
+.gate{
+    position: absolute;
+    top: -29px;
+    font-size: 1.1rem;
+    text-align: center;
+    z-index: 10;
+}
+
+
+.booked{
+    opacity: .4 !important;
+    background: #aeffbb !IMPORTANT;
+    cursor: not-allowed !important;
+
+    button{
+      background: #aeffbb !IMPORTANT;
+      cursor: not-allowed !important;
+    }
+}
+.red{
+  background: #e3cfcf !important;
+  
+  i{
+    background: #e3cfcf !important;
+    color: black !important;
+  }
+
+  button{
+    background: #e3cfcf !important;
+  }
+}
+
+.services{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.bus_done{
+  background: #aeffbb !IMPORTANT;
+}
+
+.not_allowed{
+  cursor: not-allowed !important;
+}

@@ -1,0 +1,78 @@
+<div class="modal-container d-flex justify-content-between flex-column mh-700px">
+
+    <div class="modal-header justify-content-end border-bottom-0 pb-2">
+
+        <div (click)="closeModal()" class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+
+            <span [inlineSVG]="'assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-2x"></span>
+
+        </div>
+
+    </div>
+
+    <div class="modal-body h-100 scroll-y pt-2">
+
+        <div class="mb-6 text-center">
+
+            <h1 class="mb-3">{{ 'media.choose_media' | translate }}</h1>
+
+        </div>
+
+        <app-search></app-search>
+        <app-no-data [isModal] = "true" *ngIf="(settings.isContentLoading | async) === false && (items | async).length <= 0"></app-no-data>
+
+        <ngx-content-loading *ngIf="(settings.isContentLoading | async) === true" [width]="200" rtl="true"
+            [primaryColor]="'#ffffff'">
+            <svg:g ngx-list-preset></svg:g>
+        </ngx-content-loading>
+
+        <div class="row g-6" *ngIf="(items | async).length > 0">
+
+            <div class="col-md-6 col-12" *ngFor="let item of (items | async)">
+                <!--begin::Card-->
+                <div [ngClass]="{'active': isSelected(item.id)}" class="inactive card main_card h-100 overflow-hidden shadow-sm">
+                    
+                    <!--begin::Card body-->
+                    <div [style.background]="getImage(item.id)" (click)="handleSelected(item.id)" class="cursor-pointer rounded box_image card-body d-flex justify-content-center text-center flex-column p-8">
+
+                        <span *ngIf="isSelected(item.id)" [inlineSVG]="'assets/media/icons/duotune/general/gen037.svg'" class="active_btn svg-icon svg-icon-2x svg-icon-success user-select-none"></span>
+
+                        <a class="text-gray-800 text-hover-primary d-flex flex-column" *ngIf="!isImage(item.name)">
+                            <!--begin::Image-->
+                            <div class="symbol symbol-60px mb-5">
+                                <img src="assets/media/svg/files/pdf.svg" class="" alt="">
+                            </div>
+
+                            <div class="fs-5 fw-bold mb-2">{{ (item.name).substring(0, 30) }}</div>
+
+
+                            <!--end::Image-->
+                            <!--begin::Title-->
+                            <!--end::Title-->
+                        </a>
+
+                    </div>
+
+                </div>
+                <!--end::Card-->
+            </div>
+        
+        </div>
+
+    </div>
+
+    <div class="modal-footer justify-content-center border-top-0">
+
+        <div class="text-center">
+
+            <button matRipple class="btn btn-light me-3" (click)="closeModal()">{{ 'general.cancel' | translate
+                }}</button>
+
+            <button matRipple (click)="save()" class="btn btn-primary fw-bolder">{{ 'general.submit' | translate
+                }}</button>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,24 @@
+<div class="customer-list p-10 m-4" id="customer-list">
+
+    <div class="head">
+        <div class="fromTO fs-5" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+            <div class="trip_from"> {{'from2' | translate}} {{ data.item.from | uppercase }}</div>
+            <div class="trip_to"> {{'to2' | translate}} {{ data.item.to | uppercase }}</div>
+            <div class="trip_to"> {{'date2' | translate}} {{ data.item.departure | date: 'dd/MM/yyyy' }}</div>
+            <div class="trip_to"> {{'time2' | translate}} {{ data.item.departure | date: 'hh:mm a' }}</div>
+            <div class="trip_to"> {{'trip_number2' | translate}} {{ data.item.code }}</div>
+            <div class="trip_to"> {{'bus2' | translate}} {{ data.item.bus.number }}</div>
+        </div>
+    </div>
+
+    <div class="separator my-5"></div>
+
+    <div [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" *ngFor="let item of data.list; let i = index" class="border border-gray-400 border-dashed rounded min-w-80px py-3 px-4 mx-2 mb-3">
+        <div [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" class="fw-bold text-gray-900 fs-2 fw-bold"> {{ i + 1 }}- {{ item.name }} (<span class = "fw-bolder"> {{ seats(item )}}</span>) </div>
+    </div>
+
+</div>
+
+<div class="page_btn d-none">
+    <button   [useExistingCss]="true" printSectionId="customer-list" #printing ngxPrint (click) = "print()">Print</button>
+</div>

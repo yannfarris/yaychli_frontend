@@ -1,0 +1,84 @@
+<div class="print_area" id="invoice_wrapper">
+    <div class="page_wrapper invoice_wrapper" *ngFor="let item of [1,2,3]; let i = index">
+        <div class="inv-header" [ngClass]="{'red': i === 0, 'blue': i === 1, 'green': i === 2}">
+            <img style="
+            height: 2rem;
+            margin: 2rem;
+            filter: invert(1);"
+            src="./assets/media/logos/logo-black.png" alt="">
+        </div>
+        <div class="body">
+
+            <div class="sec">
+    
+                <div class="content">
+                    <span class="content_h">{{ 'to' | translate }}</span>
+                    <span class="content_d">{{ getStop().to | uppercase}}</span>
+                </div>
+    
+                <div class="content">
+                    <span class="content_h">{{ 'date' | translate }}</span>
+                    <span class="content_d">{{ getStop().arrive | date: 'dd/MM/yyyy' }}</span>
+                </div>
+    
+            </div>
+    
+            <div class="sec align-items-end" >
+    
+                <div class="content">
+                    <span class="content_h">{{ 'customer_name' | translate }}</span>
+                    <span class="content_d">{{data.customerName}}</span>
+                </div>
+    
+                <div class="content">
+                    <span class="content_h">{{ 'seats' | translate }}</span>
+                    <div class="seats-list">
+                        <span class="content_d border-gray-400 border-dashed rounded p-2 mb-3" *ngFor="let item of data.seats">{{ item }}</span>
+                    </div>
+                </div>
+    
+            </div>
+
+            <div class="sec">
+                
+                <div class="content">
+                    <span class = "content_h">{{ 'from' | translate }}</span>
+                    <span class="content_d">{{ getStop().from | uppercase }}</span>
+                </div>
+    
+                <div class="content">
+                    <span class = "content_h">{{ 'date_time' | translate }}</span>
+                    <span class="content_d">{{ getStop().departure | date: 'dd/MM/yyyy hh:mm a' }}</span>
+                </div>
+    
+            </div>
+    
+
+    
+        </div>
+    
+      <div class="footer" [ngClass]="{'red': i === 0, 'blue': i === 1, 'green': i === 2}">
+    
+        <div class="row_cont">
+            <span class = "row_cont_title">{{ "trip_number2" | translate}} </span>
+            <span class = "row_cont_desc">{{ data.item.code }}</span>
+        </div>
+    
+        <div class="row_cont">
+            <span class = "row_cont_title">{{ "bus_number2" | translate}} </span>
+            <span class = "row_cont_desc">{{ data.item.bus.number }}</span>
+        </div>
+
+        <div class="row_cont">
+            <span class = "row_cont_title">{{ "rev_price2" | translate}} </span>
+            <span class = "row_cont_desc">{{ data.item?.reservations[0]?.price | currency }}</span>
+        </div>
+    
+      </div>
+    
+    </div>
+    
+    <div class="page_btn d-none">
+        <button   [useExistingCss]="true" printSectionId="invoice_wrapper" #printing ngxPrint (click) = "print()">Print</button>
+    </div>
+</div>

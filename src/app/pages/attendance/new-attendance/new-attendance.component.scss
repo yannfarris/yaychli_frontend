@@ -1,0 +1,52 @@
+#container {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .circle {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    opacity: 0;
+  }
+
+  .item {
+    z-index: 100;
+    padding: 5px;
+  }
+
+  .item img {
+    width: 120px;
+  }
+  .in{
+    background-color: #6ccb87 !important;
+  }
+  .out{
+    background-color: #f98787 !important;
+  }
+
+  .circle {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    opacity: 0;
+    animation: scaleIn 3s infinite  cubic-bezier(0.14, 0.45, 0.46, 0.99);
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(.5, .5);
+      opacity: .5;
+    }
+    to {
+      transform: scale(2.5, 2.5);
+      opacity: 0;
+    }
+  }

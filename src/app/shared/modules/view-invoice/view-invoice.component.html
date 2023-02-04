@@ -1,0 +1,89 @@
+<div class="modal-content user-select-none">
+    <div class="modal-header pb-0 border-0 justify-content-end">
+
+    </div>
+
+    <div class="modal-body m-0 p-0">
+
+        <div class=" scroll-y g-0  mx-5 mx-xl-10 pt-0 mh-600px">
+
+
+            <div class="receipt">
+
+              
+                <div class="receipt_header_title">
+                  <h1>{{ 'general.invoice' | translate }}</h1>
+                </div>
+              
+                 <div class="invoice_info">
+                  <div class="invoice_info_item"[ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                    <div class="key" translate="pos.invoice_number"></div>
+                    <div class="value">{{ data.invoice_number }}</div>
+                  </div>
+              
+                  <div class="invoice_info_item" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                    <div class="key" translate="general.customer_name"></div>
+                    <div class="value">{{ data.user.name }}</div>
+                  </div>
+              
+                  <div class="invoice_info_item" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                    <div class="key" translate="general.time"></div>
+                    <div class="value">
+                      {{ data.createdAt  | date: "shortTime" }}
+                    </div>
+                  </div>
+              
+                  <div class="invoice_info_item" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                    <div class="key" translate="general.date"></div>
+                    <div class="value">
+                      {{ data.createdAt  | date: "dd/MM/YYYY" }}
+
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <dl class="receipt__list">
+                  
+                  <div>
+                    <div *ngFor="let item of data.orders" class="receipt__list-row" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                      <div class="receipt__item fs-3" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                        {{ item.name }} - <span class="quantity fw-boldest">{{ formatnumber(item.quantity, "en-US") }}X</span>
+                      </div>
+                
+                      <div class="receipt__cost fs-3 fw-boldest">
+                        {{formatnumber(item.total_price,"en-US",  (auth.currentUserSubject | async).school?.currency !== 'USD' ? '1.0-0' : '1.2-2') }} <span class = " currency text-uppercase">{{ (auth.currentUserSubject | async).school?.currency }}</span>
+                      </div>
+                    </div>
+                  </div>
+              
+              
+                  <div class="sub_item_container">
+                    <div
+                      class="sub_item fs-3"
+                      [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}"
+                    >
+                      <h1 class = "fs-3" translate="pos.quantity"></h1>
+                      <span class = "fs-4">{{
+                        formatnumber(data.quantity , "en-US")
+                      }}</span>
+                    </div>
+              
+                    <div
+                      class="sub_item fs-3"
+                      [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}"
+                    >
+                      <h1 class = "fs-4" translate="pos.total_price_2"></h1>
+                      <span class = "fs-3 m-0">{{formatnumber(data.total_price,"en-US",  (auth.currentUserSubject | async).school?.currency !== 'USD' ? '1.0-0' : '1.2-2') }} <span class = "text-uppercase">{{ (auth.currentUserSubject | async).school?.currency }}</span></span>
+                    </div>
+
+                  </div> 
+                </dl>
+              </div>
+              
+
+        </div>
+
+    </div>
+
+</div>

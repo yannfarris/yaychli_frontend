@@ -1,0 +1,30 @@
+<form [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form" class="">
+
+<div class="row">
+        
+    <div class="col">
+        <div class="d-flex flex-column mb-1" [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+
+            
+            <div class="field-group d-flex flex-column mb-1 fv-row fv-plugins-icon-container">
+                <!--begin::Label-->
+                <label  for="date" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                    <span class="" translate="general.date"></span>
+                </label>
+                </div>
+
+                
+                <mat-form-field appearance="fill">
+                    <mat-date-range-input [rangePicker]="date" [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+                      <input formControlName = "start" matStartDate >
+                      <input formControlName = "end" matEndDate >
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix mobie [for]="date"></mat-datepicker-toggle>
+                    <mat-date-range-picker [touchUi] = 'settings.isMobile' #date></mat-date-range-picker>
+                  </mat-form-field>    
+            
+        </div>
+    </div>
+    
+</div>
+</form>

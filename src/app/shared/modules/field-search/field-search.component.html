@@ -1,0 +1,10 @@
+<form [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form" class="px-2">
+
+    <div class = " position-relative">
+        <span [ngClass]="(settings.currentLang | async) === 'ar' ? 'search_icon_rtl': 'search_icon' "class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6" [inlineSVG] = "'assets/media/icons/duotune/general/gen004.svg'"></span>
+        <input (keydown.shift.enter)="$event.stopPropagation(); addNewSearch(form.get('search').value)" (keydown.enter)="$event.stopPropagation(); addNewSearch(form.get('search').value)"  formControlName="search"  maxlength="40"  [ngClass]="(settings.currentLang | async) === 'ar' ? 'pe-10': 'ps-10'"  class = " py-5 w-100 border-0" placeholder ="{{ 'general.type_search' | translate }}" id="name" type="text"  matInput >
+    </div>
+
+ </form>   
+
+ <!-- addNewSearch(form.get('search').value) -->

@@ -1,0 +1,67 @@
+<app-media-info></app-media-info>
+<app-search></app-search>
+<app-no-data *ngIf="(settings.isContentLoading | async) === false && (items | async).length <= 0"></app-no-data>
+
+<ngx-content-loading *ngIf="(settings.isContentLoading | async) === true" [width]="200" rtl="true" [primaryColor]="'#ffffff'">
+    <svg:g ngx-list-preset></svg:g>
+</ngx-content-loading>
+
+<div class="row big-m g-6 g-xl-9 mb-xl-9" *ngIf="(items | async).length > 0 && (settings.isContentLoading | async) === false">
+
+    <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let item of (items | async)">
+        <!--begin::Card-->
+        <div class="card main_card h-100 overflow-hidden shadow-sm">
+            
+            <!--begin::Card body-->
+            <div [style.background]="getImage(item)" (click)="viewImage(item)"
+                class="cursor-pointer rounded box_image card-body d-flex justify-content-center text-center flex-column p-8">
+                <!--begin::Name-->
+                <a class="text-gray-800 text-hover-primary d-flex flex-column" *ngIf="item.type !== 'image' && item.type !== 'profile'">
+                    <!--begin::Image-->
+                    <div class="symbol symbol-60px mb-5">
+                        <img src="assets/media/svg/files/pdf.svg" class="" alt="">
+                    </div>
+                    <!--end::Image-->
+                    <!--begin::Title-->
+                    <div class="fs-5 fw-bold mb-2">{{ (item.name).substring(0, 30) }}</div>
+                    <!--end::Title-->
+                </a>
+ 
+            </div>
+            <!--end::Card body-->
+
+            <div class="image_option" *ngIf="role.isAdmin()">
+
+                <div [matMenuTriggerFor]="headerMenu" class="btn btn-icon btn-sm btn-active-light-primary s-menu">
+                    <span [inlineSVG]="'assets/media/icons/duotune/general/gen053.svg'" class="svg-icon svg-icon-1 p-4">
+
+                    </span>
+                </div>
+
+                <mat-menu #headerMenu="matMenu">
+
+                    <button mat-menu-item (click) = "delete(item.id)"
+                      [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+                      <span>{{ 'general.delete' | translate }}</span>
+                    </button>
+                
+                
+                
+                  </mat-menu>
+
+                  
+            </div>
+        </div>
+        <!--end::Card-->
+    </div>
+
+</div>
+
+
+<div class="pag_container_fixed">
+    <app-pagination class = "pag_container_fixed2" *ngIf="(items | async).length > 0 && (settings.isContentLoading | async) === false"></app-pagination>
+
+</div>
+
+
+<!-- *ngIf="(items | async).length > 0 && (settings.isContentLoading | async) === false" -->

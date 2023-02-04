@@ -1,0 +1,55 @@
+.branches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .branch_data {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  }
+  
+  .card_menu {
+    background: white;
+    border-radius: 8px;
+  
+    width: 36px !important;
+    padding: 0px;
+    margin: 0px;
+    min-width: auto;
+  }
+  
+  .status{
+          background: white;
+          padding: 7px;
+          border-radius: 8px;
+  }
+  .card-header-active{
+     background-color: var(--primary-light) !important;
+  }
+  .card-header-inactive{
+     background-color: var(--primary-inactive) !important;
+  }
+  
+  .round {
+    border-radius: 7px !important;
+    overflow: hidden;
+    
+  }
+
+  .add{
+    overflow: hidden;
+  }
+
+  .services{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+
+    i{
+      color: var(--bs-active-primary);
+    }
+  }

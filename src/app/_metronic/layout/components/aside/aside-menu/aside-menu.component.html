@@ -1,0 +1,48 @@
+<div class="menu-item" *ngIf="role.isMegaAdmin()">
+  <a class="menu-link without-sub" routerLink="/branches" routerLinkActive="active">
+    <span class="menu-icon">
+      <i class="fa-solid fa-building svg-icon svg-icon-2"></i>
+    </span>
+    <span [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" class="menu-title">{{'menu.branch' | translate}}</span>
+  
+  </a>
+</div>
+<div class="menu-item" *ngIf="role.isMegaAdmin()">
+  <a class="menu-link without-sub" routerLink="/user" routerLinkActive="active">
+    <span class="menu-icon">
+      <i class="fa-solid fa-user svg-icon svg-icon-2"></i>
+    </span>
+    <span [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" class="menu-title">{{'menu.user' | translate}}</span>
+  
+  </a>
+</div>
+
+<!-- <div class="menu-item" *ngIf="role.isAdmin()">
+  <a class="menu-link without-sub" routerLink="/driver" routerLinkActive="active">
+    <span class="menu-icon">
+      <i class="fa-solid fa-id-card svg-icon svg-icon-2"></i>
+    </span>
+    <span [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" class="menu-title">{{'menu.driver' | translate}}</span>
+  
+  </a>
+</div> -->
+
+<div class="menu-item" *ngIf="role.isMegaAdmin()">
+  <a class="menu-link without-sub" routerLink="/bus" routerLinkActive="active">
+    <span class="menu-icon">
+      <i class="fa-solid fa-bus svg-icon svg-icon-2"></i>
+    </span>
+    <span [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" class="menu-title">{{'menu.bus' | translate}}</span>
+  
+  </a>
+</div>
+
+<div class="menu-item" *ngIf="role.isEmployee()">
+  <a class="menu-link without-sub" routerLink="/trips" routerLinkActive="active">
+    <span class="menu-icon">
+      <i class="fa-solid fa-ticket svg-icon svg-icon-2"></i>
+    </span>
+    <span [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" class="menu-title">{{'menu.trips' | translate}}</span>
+  
+  </a>
+</div>

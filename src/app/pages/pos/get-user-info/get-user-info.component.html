@@ -1,0 +1,38 @@
+<div class="modal-container d-flex justify-content-between flex-column mh-700px">
+
+    <div class="modal-header justify-content-end border-bottom-0 pb-2">
+        <div (click)="closeModal()" class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+            <span [inlineSVG]="'assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-2x"></span>
+        </div>
+    </div>
+
+    <div class="modal-body h-100 scroll-y pt-2">
+  
+            <div id="outerContainer">
+                <div id="container" (click)  ="showBarcodeCamera()" class = "cursor-pointer">
+                    <div class="item">
+                        <img [src]="image" />
+                    </div>
+                    <div *ngIf="isPulse" [ngClass]="{'in': type === 'in', 'out': type === 'out'}" class="circle" style="animation-delay: 0s"></div>
+                    <div *ngIf="isPulse" [ngClass]="{'in': type === 'in', 'out': type === 'out'}" class="circle" style="animation-delay: 1s"></div>
+                    <div *ngIf="isPulse" [ngClass]="{'in': type === 'in', 'out': type === 'out'}" class="circle" style="animation-delay: 2s"></div>
+                    <div *ngIf="isPulse" [ngClass]="{'in': type === 'in', 'out': type === 'out'}" class="circle" style="animation-delay: 4s"></div>
+                </div>
+            </div>
+
+            
+            <barcode-scanner-livestream-overlay
+            type="code_128"
+            (valueChanges)="onValueChanges($event)"
+            (started)="(onStarted)"
+          ></barcode-scanner-livestream-overlay>
+          <div [hidden]="!barcodeValue">
+            {{ barcodeValue }}
+          </div>
+
+        
+
+    </div>
+
+
+</div>

@@ -1,0 +1,34 @@
+<form [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form" class="">
+    <div class="row">
+
+        <div class="col">
+            <div class="d-flex flex-column mb-1" [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+            
+                <div class="field-group d-flex flex-column mb-1 fv-row fv-plugins-icon-container">
+                   
+                    <label  for="status" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="">{{ 'general.status' | translate }}</span>
+                    </label>
+                    
+                </div>
+
+                <mat-form-field class= "pb-0" appearance="fill" [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+
+                      <mat-select value = "(apiQuery.status | async)" formControlName = "status">
+                      <mat-option value = "all" translate="general.all"></mat-option>
+                      <mat-option value = "active" translate="general.active"></mat-option>
+                      <mat-option value = "inactive" translate="general.inactive"></mat-option>
+                      <mat-option *ngIf="(settings.pageSettings | async).pageType === 'schools'" value = "sub_end" translate="general.sub_end"></mat-option>
+                      <mat-option *ngIf="(settings.pageSettings | async).pageType === 'attendance'" value = "in" translate="attendance.in"></mat-option>
+                      <mat-option *ngIf="(settings.pageSettings | async).pageType === 'attendance'" value = "out" translate="attendance.out"></mat-option>
+                      
+                      </mat-select>
+
+                </mat-form-field>
+
+            
+            </div>
+        </div>
+    </div>
+
+</form>

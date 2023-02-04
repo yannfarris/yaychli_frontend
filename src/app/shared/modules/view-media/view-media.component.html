@@ -1,0 +1,78 @@
+
+
+<div class="modal-container d-flex justify-content-between flex-column mh-700px">
+
+    <div class="modal-header justify-content-end border-bottom-0 pb-2">
+        <div (click)="closeModal()" class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+            <span [inlineSVG]="'assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-2x"></span>
+        </div>
+    </div>
+
+    <div class="modal-body h-100 scroll-y pt-2">
+
+
+        <div class="mb-6 text-center">
+            <h1  class="mb-3">{{ 'media.media_title' | translate }}</h1>
+            <div  class="text-muted fw-bold fs-5 text-gray-700">
+                <span>{{ data?.name }}</span>
+            </div>
+
+        </div>
+        <div class="row g-6" *ngIf="(items | async).length > 0">
+
+            <div class="col-md-6 col-12" *ngFor="let item of (items | async)">
+                <!--begin::Card-->
+                <div class="card main_card h-100 overflow-hidden shadow-sm">
+                    
+                    <!--begin::Card body-->
+                    <div [style.background]="getImage(item.id)" (click)="viewImage(item.id)" class="cursor-pointer rounded box_image card-body d-flex justify-content-center text-center flex-column p-8">
+         
+                        <a class="text-gray-800 text-hover-primary d-flex flex-column" *ngIf="!isImage(item.name)">
+                            <!--begin::Image-->
+                            <div class="symbol symbol-60px mb-5">
+                                <img src="assets/media/svg/files/pdf.svg" class="" alt="">
+                            </div>
+
+                            <div class="fs-5 fw-bold mb-2">{{ (item.name).substring(0, 30) }}</div>
+
+                            <!--end::Image-->
+                            <!--begin::Title-->
+                            <!--end::Title-->
+                        </a>
+
+                    </div>
+
+                    <div class="image_option" *ngIf="role.isAdmin()">
+
+                        <div [matMenuTriggerFor]="headerMenu" class="btn btn-icon btn-sm btn-active-light-primary s-menu">
+                            <span [inlineSVG]="'assets/media/icons/duotune/general/gen053.svg'" class="svg-icon svg-icon-1 p-4">
+        
+                            </span>
+                        </div>
+        
+                        <mat-menu #headerMenu="matMenu">
+        
+                            <button mat-menu-item (click) = "delete(item.id)"
+                              [ngClass]="(settings.currentLang | async) === 'ar' ? 'text-end': 'text-start'">
+                              <span>{{ 'general.delete' | translate }}</span>
+                            </button>
+                        
+                        
+                        
+                          </mat-menu>
+        
+                          
+                    </div>
+                 
+                </div>
+                <!--end::Card-->
+            </div>
+        
+        </div>
+
+
+    </div>
+
+   
+
+</div>

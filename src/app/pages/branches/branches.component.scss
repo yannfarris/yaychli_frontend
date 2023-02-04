@@ -1,0 +1,39 @@
+.branches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+.branch_data {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-gap: 10px;
+}
+
+.card_menu {
+  background: white;
+  border-radius: 8px;
+
+  width: 36px !important;
+  padding: 0px;
+  margin: 0px;
+  min-width: auto;
+}
+
+.status{
+        background: white;
+        padding: 7px;
+        border-radius: 8px;
+}
+.card-header-active{
+   background-color: var(--primary-light) !important;
+}
+.card-header-inactive{
+   background-color: var(--primary-inactive) !important;
+}
+
+.round {
+  border-radius: 7px !important;
+  overflow: hidden;
+  
+}

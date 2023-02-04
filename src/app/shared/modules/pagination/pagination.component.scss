@@ -1,0 +1,66 @@
+.pag-pad {
+  padding: 4px 30px !important;
+}
+
+.rotate_arrow {
+  transform: rotate(180deg);
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100px;
+}
+
+.page_value_bg {
+  background: #f9f9f9 !important;
+  max-width: 60px;
+  font-weight: bolder;
+  font-size: 15px;
+  width: 100%;
+
+}
+
+.pag-pad {
+  outline: none !important;
+  border: none;
+  padding: 4px 18px !important;
+  border-radius: 4px;
+  background: transparent !important;
+
+}
+
+.inp-page {
+  background: #f9f9f9 !important;
+}
+
+
+.pag {
+  transform: scale(0.8);
+}
+
+.svg-icon {
+  transform: scale(1.5) !important;
+}
+
+@media screen and (max-width: 500px) {
+
+  .hide_mobile {
+    display: none !important;
+  }
+
+}
+
+
+
+.pg-con {
+  background: white;
+  padding: 28px 1px;
+  border-radius: 7px;
+
+
+  width: 91%;
+  max-width: calc(1000px - 262px);
+}

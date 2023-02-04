@@ -1,0 +1,129 @@
+<div
+  class="modal-container d-flex justify-content-between flex-column modal-max-h"
+>
+  <div class="modal-header justify-content-end border-bottom-0 pb-2">
+    <div
+      (click)="closeModal()"
+      class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+      aria-label="Close"
+    >
+      <span
+        [inlineSVG]="'assets/media/icons/duotune/arrows/arr061.svg'"
+        class="svg-icon svg-icon-2x"
+      ></span>
+    </div>
+  </div>
+
+  <div class="modal-body h-100 scroll-y pt-2">
+    <div class="mb-6 text-center">
+      <h1 *ngIf="!id" class="mb-3">{{ "new_driver" | translate }}</h1>
+      <h1 *ngIf="id" class="mb-3">{{ "edit_item" | translate }}</h1>
+    </div>
+
+    <form [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form" class="">
+      <!-- form field -->
+
+      <div
+        class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container"
+      >
+        <!--begin::Label-->
+        <label for="name" class="d-flex align-items-center fs-6 fw-bold mb-2 required ">
+          <span class="fw-bolder">{{ "name" | translate }}</span>
+        </label>
+        <!--end::Label-->
+
+        <mat-form-field appearance="fill" class="w-100">
+          <input
+            class="py-2"
+            maxlength="40"
+            placeholder="{{ 'fill_field_data' | translate }}"
+            formControlName="name"
+            id="name"
+            type="text"
+            (keydown.enter)="$event.preventDefault()"
+            (keydown.shift.enter)="$event.preventDefault()"
+            matInput
+          />
+          <mat-error
+            class="fs-6"
+            *ngIf="
+              form.get('name')?.hasError('required') &&
+              form.get('name')?.touched
+            "
+            >{{ "general.this_field_required" | translate }}</mat-error
+          >
+        </mat-form-field>
+      </div>
+     
+    <div *ngIf="role.isMegaAdmin()" class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
+
+        <label for="account_type" class="d-flex align-items-center fs-6 fw-bold mb-2 required">
+            <span class="fw-bolder">{{ 'branch_name' | translate }}</span>
+        </label>
+
+        <mat-form-field appearance="fill" class=" select">
+
+            <mat-select formControlName="branch_id" (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();">
+                <mat-option *ngFor="let item of (branches | async)" [value]="item.id">{{ item.name }}</mat-option>
+
+            </mat-select>
+
+            <mat-error class=" fs-6"
+                *ngIf="form.get('branch_id')?.hasError('required') && form.get('branch_id')?.touched">{{
+                'general.this_field_required' | translate }}</mat-error>
+        </mat-form-field>
+
+    </div>
+
+      <!-- form field -->
+
+      <div
+        class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container"
+      >
+        <!--begin::Label-->
+        <label for="note" class="d-flex align-items-center fs-6 fw-bold mb-2">
+          <span class="fw-bolder">{{ "note" | translate }}</span>
+        </label>
+        <!--end::Label-->
+
+        <mat-form-field appearance="fill">
+          <textarea
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="15"
+            (keydown.shift.enter)="$event.preventDefault()"
+            formControlName="note"
+            id="note"
+            matInput
+            placeholder="{{ 'general.fill_data_here' | translate }}"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- end form field -->
+    </form>
+  </div>
+
+  <div class="modal-footer justify-content-center border-top-0">
+    <div class="text-center">
+      <button matRipple class="btn btn-light me-3" (click)="closeModal()">
+        {{ "general.cancel" | translate }}
+      </button>
+
+      <button
+        matRipple
+        [disabled]="!form.valid || (settings.isLoading | async).state === 'on'"
+        (click)="save()"
+        class="btn btn-primary fw-bolder"
+      >
+        <span
+          *ngIf="(settings.isLoading | async).state === 'on'"
+          class="spinner-border spinner-border-sm align-middle mx-3"
+        ></span>
+        <span *ngIf="id" class="indicator-label">{{ "edit" | translate }}</span>
+        <span *ngIf="!id" class="indicator-label">{{ "general.create" | translate }}</span>
+      </button>
+    </div>
+  </div>
+</div>

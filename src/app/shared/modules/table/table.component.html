@@ -1,0 +1,142 @@
+<div class="tab-content main_t">
+
+    <div product_id="kt_project_users_table_pane" class="tab-pane fade active show">
+        <div class="card card-flush mb-10">
+            <div class="card-header border-0 pt-6" [ngClass]="(settings.currentLang | async)  === 'ar' ? 'rtl-dir': ''">
+                <div class="card-title"></div>
+                <div class="card-toolbar">
+
+
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="table-responsive" [ngClass]="(settings.currentLang | async)  === 'ar' ? 'rtl-dir': ''">
+
+
+                    <table class="table table-responsive  gs-7 gy-7 gx-7 table-row-dashed table-rounded">
+                        <thead>
+
+                            <tr class="fw-bolder fs-6 text-gray-800 border-bottom border-gray-200">
+                                <th class="fw-bolder" *ngFor="let row of rows">{{row}}</th>
+                            </tr>
+
+                        </thead>
+                        <tbody *ngIf="sort.length > 0">
+                            <tr *ngFor="let item of items">
+
+                                <td *ngIf="nameState(item)" class = "text-hover-primary" (click) = "viewUser(item)" [ngClass]="{'cursor-pointer': isUser()}">
+                                    <div [ngClass] = "(settings.currentLang | async)  === 'ar' ? 'rtl-dir': ''" *ngIf="nameState(item)"
+                                        class=" d-flex flex-row justify-content-start align-items-center">
+                                        <!-- <div *ngIf="isSymbol" class="symbol symbol-circle symbol-50px">
+                                            <span class="symbol-label fs-3 font-weight-bold bg-light text-black">
+                                                {{ getNameText(item).substring(0,1) | uppercase }}</span>
+                                        </div> -->
+                                        <span *ngIf="getNameText(item)" class="mx-5">{{ getNameText(item) }}</span>
+                                        <span *ngIf="!getNameText(item)" class="mx-5">---</span>
+                                    </div>
+                                </td>
+                                <!-- d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2 -->
+                                <td class = "text-hover-primary" *ngFor="let subItem of getSubItem(item)" (click)="toggleFold(getItemText(subItem)); viewUser(item)" [ngClass]="{'cursor-pointer': isUser()}">
+                                    <div class = "mainText"  [@panelState]="folded">
+                                        <span class = "" [ngClass]="{
+                                         'cursor-pointer': getItemText(subItem).length > 130}"
+                                         *ngIf="getItemText(subItem)">{{ getItemText(subItem) }}</span>
+                                         <span class = "" *ngIf="!getItemText(subItem)">---</span>
+                                    </div>
+
+                                    <div *ngIf="getLength(subItem) > 130" (click)="toggleFold(getItemText(subItem))" class = "cursor-pointer mt-4 d-flex flex-row justify-content-center align-items-center">
+                                        <span [ngClass]="{'rotate-arrow': folded === 'open'}" class = " rotate-90"><i class="fa-solid fa-arrow-down"></i></span>
+                                    </div>
+
+                                </td>
+
+                                <td class = "text-hover-primary" *ngIf="isDate" [ngClass]="{'cursor-pointer': isUser()}" (click) = "viewUser(item)">
+
+                                    <div class = "mainText">
+                                        <span class = "text-center">{{ (item.date || item.createdAt) |  date: 'dd/MM/yyyy' }}</span>
+                                    </div>
+
+                                </td>
+
+                                <td class = "text-hover-primary" *ngIf="isTime" [ngClass]="{'cursor-pointer': isUser()}" (click) = "viewUser(item)">
+
+                                    <div class = "mainText">
+                                        <span class = "text-center">{{ item.date |  date: 'shortTime' }}</span>
+                                    </div>
+
+                                </td>
+
+                                <td class = "text-hover-primary" *ngIf="item.note" (click)="toggleFold(item.note); viewUser(item)" [ngClass]="{'cursor-pointer': isUser()}">
+                                    <div class = "mainText"  [@panelState]="folded" *ngIf="item.note">
+                                        <span class = "text-center" [ngClass]="{'cursor-pointer': item.note.length > 130}">{{ item.note }}</span>
+                                    </div>
+
+                                    <div *ngIf="item.note?.length > 130" (click)="toggleFold(item.note)" class = "cursor-pointer mt-4 d-flex flex-row justify-content-center align-items-center">
+                                        <span [ngClass]="{'rotate-arrow': folded === 'open'}" class = " rotate-90"><i class="fa-solid fa-arrow-down"></i></span>
+                                    </div>
+
+                                </td>
+
+                                <td *ngIf="!item.note">
+                                    <div class = "mainText text-center">
+                                        <span>---</span>
+                                    </div>
+                                </td>
+                                
+                                <td *ngIf="item.id !== (atuh.currentUserSubject | async).id" class = "action_pos" [ngClass]="(settings.currentLang | async) === 'ar' ? 'fixed-col-rtl': 'fixed-col'">
+                                    <div class=" d-flex">
+
+                                        <button matTooltip="{{ 'general.delete' | translate }}" *ngIf="role.isDeleteAction() && isDelete" (click)="actionHandle(item.id, 'delete')"
+                                            class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm me-1">
+                                            <span [inlineSVG]="'assets/media/icons/duotune/general/gen027.svg'"
+                                                class="svg-icon svg-icon-3"></span>
+                                        </button>
+
+                                        <button matTooltip="{{ 'general.deactivate' | translate }}" *ngIf="role.isStatusAction() && item.status === 'active' && isStatus" (click)="actionHandle(item.id, 'inactive')"
+                                            class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm me-1">
+                                            <span [inlineSVG]="'assets/media/icons/duotune/arrows/arr014.svg'"
+                                                class="svg-icon svg-icon-3"></span>
+                                        </button>
+
+                                        <button matTooltip="{{ 'general.activate' | translate }}" *ngIf="role.isStatusAction() && item.status === 'inactive' && isStatus" (click)="actionHandle(item.id, 'active')"
+                                            class="btn btn-icon btn-bg-light btn-active-color-success btn-sm me-1">
+                                            <span [inlineSVG]="'assets/media/icons/duotune/arrows/arr016.svg'"
+                                                class="svg-icon svg-icon-3"></span>
+                                        </button>
+                                        
+                                        <button matTooltip="{{ 'general.edit' | translate }}" *ngIf="role.isEditAction() && isEdit" (click)="actionHandle(item, 'edit')"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <span [inlineSVG]="'assets/media/icons/duotune/art/art005.svg'"
+                                                class="svg-icon svg-icon-3"></span>
+                                        </button>
+
+                                        <button matTooltip="{{ 'general.view_docs' | translate }}" *ngIf="role.isAdmin() && isMediaFiles(item)" (click)="viewDocs(item)"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <span [inlineSVG]="'assets/media/icons/duotune/abstract/abs029.svg'"
+                                                class="svg-icon svg-icon-3"></span>
+                                        </button>
+                                        <button matTooltip="{{ 'pos.view_invoice' | translate }}" *ngIf="role.isViewInvoiceAction()" (click)="viewInvoice(item)"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                            <span [inlineSVG]="'assets/media/icons/duotune/abstract/abs029.svg'"
+                                                class="svg-icon svg-icon-3"></span>
+                                        </button>
+
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

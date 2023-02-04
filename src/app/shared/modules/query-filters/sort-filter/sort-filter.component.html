@@ -1,0 +1,33 @@
+<form [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form" class="">
+    <div class="row">
+
+        <div class="col">
+            <div class="d-flex flex-column mb-1" [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+            
+                <div class="field-group d-flex flex-column mb-1 fv-row fv-plugins-icon-container">
+                   
+                    <label  for="status" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="">{{ 'general.sort' | translate }}</span>
+                    </label>
+                    
+                </div>
+
+                <mat-form-field class= "pb-0" appearance="fill"
+                 [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+
+                      <mat-select [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}"  value = "(apiQuery.sort | async)" formControlName = "sort">
+                      <mat-option [ngClass]="{ 'rtl-dir':  true}"  value = "desc">{{ 'general.desc' | translate }}</mat-option>
+                      <mat-option [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}"  value = "asc">{{ 'general.asc' | translate }}</mat-option>
+                      <mat-option [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}"  *ngIf="role.isSuperAdmin() && (settings.pageSettings | async).pageType === 'schools'" value = "near_sub_end">{{ 'general.near_sub_end' | translate }}</mat-option>
+                      <mat-option [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}"  *ngIf="role.isSuperAdmin() && (settings.pageSettings | async).pageType === 'schools'" value = "far_sub_end">{{ 'general.far_sub_end' | translate }}</mat-option>
+                      
+                      </mat-select>
+
+                </mat-form-field>
+
+            
+            </div>
+        </div>
+    </div>
+
+</form>

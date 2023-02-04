@@ -1,0 +1,30 @@
+<div class="options">
+    <mat-menu #menu="matMenu">
+        <app-query-filters (click)="$event.stopPropagation()"></app-query-filters>
+      </mat-menu>
+      
+      <div class="mx-2"> 
+        <button matRipple class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder cursor-pointer" mat-button
+          [matMenuTriggerFor]="menu">
+          <span [inlineSVG]="'./assets/media/icons/duotune/general/gen031.svg'"
+            class="svg-icon svg-icon-5 svg-icon-gray-500 me-1 fw-bolder"></span>
+          {{ 'general.filter' | translate }}
+    </button>
+
+    <button  *ngIf="(settings.pageSettings | async).isShowSearch === true && isShowSearch()"
+    [disabled]="(settings.isContentLoading | async) === true" matRipple (click)=showSearch()
+    class="btn btn-sm btn-light cursor-pointer mx-2 fw-bolder" data-bs-toggle="modal"
+    data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button"
+    [ngClass]="{'btn-primary': (apiQuery.isShowSearch | async) === true}"
+    >
+    {{ 'general.show_search' | translate}}
+  </button>
+
+  <button *ngIf="(settings.pageSettings | async).showCreate === true && role.isAdmin()"
+  [disabled]="(settings.isContentLoading | async) === true" matRipple (click)=create()
+  class="btn btn-sm btn-primary cursor-pointer mx-2 fw-bolder" data-bs-toggle="modal"
+  data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">
+  {{ (settings.pageSettings | async).createText | translate}}
+</button>
+
+</div>

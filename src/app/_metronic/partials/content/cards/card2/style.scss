@@ -1,0 +1,28 @@
+.card-prog-bac {
+    background: #dbdbdb;
+}
+
+.social_icon {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    i {
+        font-size: 19px;
+        cursor: pointer;
+        min-width: 30px;
+        min-height: 25px;
+        padding: 10px;
+
+    }
+
+}
+
+.s-menu{
+    position:absolute;
+    top: 0px;
+
+}

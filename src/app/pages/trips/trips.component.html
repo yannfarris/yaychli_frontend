@@ -1,0 +1,133 @@
+<app-search></app-search>
+
+<app-no-data *ngIf="(settings.isContentLoading | async) === false && (items | async).length <= 0"></app-no-data>
+
+<div class="trips">
+    <div *ngFor="let item of items | async" class="trip w-100 mt-5">
+        <div class="main card card-flush shadow-sm"
+            [ngClass]="{ 'booked not_allowed': getRemaningSeats(item) <= 0, 'red not_allowed': isGo(item) }">
+
+            <div class="card-toolbar position-absolute">
+                <!--begin::Menu-->
+                <button type="button"
+                    class="card_menu btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary me-n3"
+                    mat-button [matMenuTriggerFor]="menu">
+                    <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                    <span class="svg-icon svg-icon-3 svg-icon-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="5" y="5" width="5" height="5" rx="1" fill="currentColor"></rect>
+                                <rect x="14" y="5" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"></rect>
+                                <rect x="5" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3"></rect>
+                                <rect x="14" y="14" width="5" height="5" rx="1" fill="currentColor" opacity="0.3">
+                                </rect>
+                            </g>
+                        </svg>
+                    </span>
+                    <!--end::Svg Icon-->
+                </button>
+
+                <mat-menu #menu="matMenu">
+                    <button (click)="customerList(item)" mat-menu-item
+                        [ngClass]="{ 'rtl-text ': (settings.currentLang | async) === 'ar'}">{{ 'customer-list' |
+                        translate }}</button>
+                    <button *ngIf="!isGo(item)" (click)="edit(item)" mat-menu-item
+                        [ngClass]="{ 'rtl-text ': (settings.currentLang | async) === 'ar'}">{{ 'edit' | translate
+                        }}</button>
+                    <button (click)="delete(item.id)" mat-menu-item
+                        [ngClass]="{ 'rtl-text ': (settings.currentLang | async) === 'ar'}">{{ 'delete' | translate
+                        }}</button>
+                </mat-menu>
+
+            </div>
+
+            <div class="card-body d-flex flex-column justify-content-center align-items-center m-0 p-0">
+
+                <div class="info cursor-pointer " (click)="revsList(item)" [ngClass]="{'not_allowed': isGo(item)}">
+                    
+                    <div class="from dest">
+                        <span class="fs-3 fw-bolder" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf="getStop(item)?.from === 'baghdad'">{{ 'baghdad' | translate }}</span>
+                        <span class="fs-3 fw-bolder" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.from === 'ankara'">{{ 'ankara' | translate }}</span>
+                        <span class="fs-3 fw-bolder" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.from === 'istanbul'">{{ 'istanbul' | translate }}</span>
+                        <span class="fs-3 fw-bolder" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.from === 'erbil'">{{ 'erbil' | translate }}</span>
+                        <span class="fs-3 fw-bolder" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.from === 'kirkuk'">{{ 'kirkuk' | translate }}</span>
+
+                        <span class="time">{{ getTime(getStop(item)?.departure) | uppercase }}</span>
+                        <span>{{ getDate(getStop(item)?.departure) }}</span>
+                    </div>
+
+                    <div class="bus">
+                        <!-- <span class="gate" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}">{{ 'gate' | translate: { key: item?.gate } }} <span *ngIf="role.isMegaAdmin()">|| {{ 'branch-n' | translate: { key: item?.branch?.name } }}</span></span> -->
+                        <span matTooltip="{{ 'bus_name' | translate }}" class="gate"
+                            [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}">{{ item?.bus?.name
+                            }}</span>
+                        <div class="line dotted"></div>
+                        <i [ngClass]="{'bus_done': getRemaningSeats(item) <= 0}"
+                            class="icon fa-solid fa-bus svg-icon svg-icon-2"></i>
+                        <!-- <span class="time_take" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar' }">
+                            {{ getDiff(item.departure, item.arrive) }} {{ "hour" | translate }}
+                        </span> -->
+                        <span matTooltip="{{ 'trip_code' | translate }}" class="time_take"
+                            [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar' }">{{ item?.code }}</span>
+                    </div>
+                    <div class="to dest">
+                        <!-- <span>{{ item.to | uppercase }}</span> -->
+                        <!-- <span class="time">{{ getTime(item.arrive) | uppercase }}</span> -->
+                        <span class="fw-bolder fs-1" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.to === 'baghdad'">{{ 'baghdad' | translate }}</span>
+                        <span class="fw-bolder fs-1" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.to === 'ankara'">{{ 'ankara' | translate }}</span>
+                        <span class="fw-bolder fs-1" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.to === 'istanbul'">{{ 'istanbul' | translate }}</span>
+                        <span class="fw-bolder fs-1" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.to === 'erbil'">{{ 'erbil' | translate }}</span>
+                        <span class="fw-bolder fs-1" [ngClass]="{ 'rtl-dir ': (settings.currentLang | async) === 'ar'}"
+                            *ngIf=" getStop(item)?.to === 'kirkuk'">{{ 'kirkuk' | translate }}</span>
+
+                        <span>{{ getDate(getStop(item)?.arrive) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="price card card-flush"
+            [ngClass]="{ 'booked not_allowed': getRemaningSeats(item) <= 0, 'red not_allowed': isGo(item) }">
+            <button (click)="newRev(item)" [disabled]="getRemaningSeats(item) <= 0 || isGo(item)" matRipple
+                class="card-body d-flex flex-column justify-content-center align-items-center m-0 p-0">
+                <div class="options w-100">
+                    <span class="sets_left fs-4 fw-semiBold text-gray-900 text-black" 
+                    *ngIf="getRemaningSeats(item) <= 0 && !isGo(item)">{{ "booked" | translate }}</span>
+                    <span class="sets_left fs-4 fw-semiBold text-gray-900 text-black" 
+                    *ngIf="isGo(item)">{{ "booked2" | translate }}</span>
+                    <span class="sets_left fs-2 fw-semiBold text-gray-900 text-black"
+                        *ngIf="getRemaningSeats(item) > 0 && !isGo(item)"
+                        [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar' }">{{ getRemaningSeats(item) }}
+                        {{ "seats_left" | translate }}</span>
+                    <!-- <span class="fs-1 fw-bolder text-black text-black">{{ item.price | currency }}</span> -->
+
+                    <!-- <div class="services w-100 py-3 px-4">
+                        <i *ngIf="isServices('wifi', item?.bus?.services)" class="fas fa-wifi"></i>
+                        <i *ngIf="isServices('food', item?.bus?.services)" class="fa-solid fa-burger"></i>
+                        <i *ngIf="isServices('drinks', item?.bus?.services)" class="fa-solid fa-mug-hot"></i>
+                        <i *ngIf="isServices('charge', item?.bus?.services)" class="fa-solid fa-battery-three-quarters"></i>
+                        <i *ngIf="isServices('screen', item?.bus?.services)" class="fa-solid fa-video"></i>
+                
+                    </div> -->
+
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="pag_container_fixed">
+    <app-pagination class="pag_container_fixed2" *ngIf="
+      (items | async).length > 0 &&
+      (settings.isContentLoading | async) === false
+    "></app-pagination>
+</div>

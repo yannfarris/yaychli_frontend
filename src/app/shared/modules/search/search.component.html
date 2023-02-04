@@ -1,0 +1,18 @@
+<form onsubmit="event.preventDefault();" class = "pb-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <form [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form"  class="w-100 position-relative">
+
+                <div class="position-relative w-100">
+                    <span class="svg-icon svg-icon-3 svg-icon-gray-500 position-absolute top-50 translate-middle ms-6" [inlineSVG] = "'assets/media/icons/duotune/general/gen004.svg'">                
+                    </span>
+                    <input [ngClass]="(settings.currentLang | async ) === 'ar' ? 'pe-10': 'ps-10'" type="text" class="form-control form-control-solid fw-bold fs-5" placeholder ="{{ 'general.type_search' | translate }}" formControlName="search" id="search" type="text" (keydown.enter)="search(form.get('search').value)" (keydown.shift.enter)="search(form.get('search').value)">
+                </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</form>

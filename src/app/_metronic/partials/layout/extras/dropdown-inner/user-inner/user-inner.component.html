@@ -1,0 +1,72 @@
+<!-- [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}" -->
+<ng-container>
+  <div [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+    <div class="menu-item px-3">
+      <div class="menu-content d-flex align-items-center px-3">
+
+        <div class="symbol symbol-50px mx-5">
+          <img *ngIf="getProfileImage()" alt="Logo" [src]="getProfileImage()" />
+          <span *ngIf="!getProfileImage()" class="symbol-label fs-3 font-weight-bold bg-light text-black">
+            {{ user$.name.substring(0,1) | uppercase }}</span>
+        </div>
+
+        <div class="d-flex flex-column">
+          <div class="fw-bolder d-flex align-items-center fs-5">
+            {{ user$.name }}
+            <span *ngIf="role.isMegaAdmin()" class="badge badge-light-success fw-bolder fs-8 px-2 py-1 mx-2">{{
+              'mega_admin' | translate }}</span>
+            <span *ngIf="role.isAdminOnly()" class="badge badge-light-success fw-bolder fs-8 px-2 py-1 mx-2">{{
+              'admin' | translate }}</span>
+            <span *ngIf="role.isEmployeeOnly()" class="badge badge-light-success fw-bolder fs-8 px-2 py-1 mx-2">{{
+              'employee' | translate }}</span>
+          </div>
+          <a class="fw-bold text-gray-700 text-hover-primary fs-7 cursor-pointer">
+            {{ user$.email }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-item px-5">
+      <a routerLink="/profile" class="menu-link px-5">
+        {{ 'profile' | translate }}
+      </a>
+    </div>
+
+    <div iv class="menu-item px-5" [matMenuTriggerFor]="headerMenu" (click)="$event.stopPropagation()" yPosition="above"
+      xPosition="after">
+      <a
+        class="menu-link px-5 cursor-pointer d-flex flex-row justify-content-between align-content-center align-items-center">
+
+        <span>{{'lang' | translate}}</span>
+        <span class=" fs-8 rounded bg-light">
+          {{ language.name }}{{ " " }}
+          <img class="w-15px h-15px rounded-1 mx-2" [src]="language.flag" alt="language" />
+        </span>
+
+      </a>
+      <mat-menu #headerMenu="matMenu">
+
+        <div *ngFor="let l of langs" class="menu-item px-3 cursor-pointer" (click)="selectLanguage(l.lang)">
+          <a class="menu-link d-flex px-5" [ngClass]="l.lang === language.lang ? 'active' : ''">
+            <span class="symbol symbol-20px me-4">
+              <img class="rounded-1" [src]="l.flag" alt="metronic" />
+            </span>
+            {{ l.name }}
+          </a>
+        </div>
+
+      </mat-menu>
+
+    </div>
+
+    <!-- <div class="menu-item px-5 my-1">
+      <a routerLink="/crafted/account/settings" class="menu-link px-5">{{ 'general.settings' | translate }}</a>
+    </div> -->
+
+    <div class="menu-item px-5">
+      <a (click)="logout()" class="menu-link px-5 cursor-pointer">{{ 'signout' | translate }}</a>
+    </div>
+
+  </div>
+</ng-container>

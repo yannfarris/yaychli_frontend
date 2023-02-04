@@ -1,0 +1,14 @@
+<app-search></app-search>
+
+<ngx-content-loading *ngIf="(settings.isContentLoading | async) === true" [width]="200" rtl="true" [primaryColor]="'#ffffff'">
+    <svg:g ngx-list-preset></svg:g>
+</ngx-content-loading>
+
+<app-no-data *ngIf="(settings.isContentLoading | async) === false && (items | async).length <= 0"></app-no-data>
+
+<app-table *ngIf="(items | async).length > 0" [isSymbol] = "false" [rows] = "rows" [items] = "(items | async)" [sort] = "sort"></app-table>
+
+<div class="pag_container_fixed">
+    <app-pagination class = "pag_container_fixed2" *ngIf="(items | async).length > 0 && (settings.isContentLoading | async) === false"></app-pagination>
+
+</div>

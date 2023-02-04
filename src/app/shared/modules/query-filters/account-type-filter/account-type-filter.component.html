@@ -1,0 +1,31 @@
+<form [dir]="isRtl ? 'rtl' : 'ltr'" [formGroup]="form" class="">
+    <div class="row">
+
+        <div class="col">
+            <div class="d-flex flex-column mb-1"
+                [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+
+                <div class="field-group d-flex flex-column mb-1 fv-row fv-plugins-icon-container">
+
+                    <label for="account_type" class="d-flex align-items-center fs-6 fw-bold mb-2">
+                        <span class="">{{ 'branch_name' | translate }}</span>
+                    </label>
+
+                </div>
+
+                <mat-form-field class="pb-0" appearance="fill"
+                    [ngClass]="{ 'rtl-dir text-end': (settings.currentLang | async) === 'ar'}">
+
+                    <mat-select value="(apiQuery.branch | async)" formControlName="type">
+                        <mat-option value="all" translate="general.all"></mat-option>
+                        <mat-option *ngFor="let item of (branches | async)" [value] = "item.id">{{ item.name }}</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+
+
+            </div>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,69 @@
+<div class="modal-container d-flex justify-content-between flex-column mh-700px">
+
+    <div class="modal-header justify-content-end border-bottom-0 pb-2">
+        <div (click)="closeModal()" class="btn btn-icon btn-sm btn-active-light-primary ms-2" aria-label="Close">
+            <span [inlineSVG]="'assets/media/icons/duotune/arrows/arr061.svg'" class="svg-icon svg-icon-2x"></span>
+        </div>
+    </div>
+
+    <div class="modal-body h-100 scroll-y pt-2">
+
+        <div class="mb-6 text-center">
+            <h1 *ngIf="type === 'in' && isType" class="mb-3">{{ 'attendance.in_title' | translate }}</h1>
+            <h1 *ngIf="type === 'out' && isType" class="mb-3">{{ 'attendance.exit title' | translate }}</h1>
+            <h1 *ngIf="!isType" class="mb-3">{{ 'attendance.choose_type' | translate }}</h1>
+
+            <div *ngIf="isType" class="text-muted fw-bold fs-5 text-gray-700">
+                <span>{{ 'attendance.scan' | translate }}</span>
+            </div>
+        </div>
+
+        <div *ngIf="!isType">
+            <div class="row g-0 p-0 m-0" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+
+                <div (click) = "changeType('in')"  class="col-6 min-h-150px border">
+                    <a class="d-flex flex-column flex-center h-100 p-6 cursor-pointer">
+                        <span class="fw-bolder fs-4x text-center fw-bold mb-0 user-select-none text-capitalize">{{'attendance.in' | translate }}</span>
+                    </a>
+                </div>
+
+                <div (click) = "changeType('out')"  class="col-6 min-h-150px border">
+                    <a class="d-flex flex-column flex-center h-100 p-6 cursor-pointer">
+                        <span class="fw-bolder fs-4x text-center fw-bold mb-0 user-select-none text-capitalize">{{'attendance.out' | translate }}</span>
+                    </a>
+                </div>
+            
+            </div>
+        </div>
+
+        <div>
+  
+            <div id="outerContainer" *ngIf="isType" >
+                <div id="container" (click)  ="showBarcodeCamera()" class = "cursor-pointer">
+                    <div class="item">
+                        <img [src]="image" />
+                    </div>
+                    <div *ngIf="isPulse" [ngClass]="{'in': type === 'in', 'out': type === 'out'}" class="circle" style="animation-delay: 0s"></div>
+                    <div *ngIf="isPulse" [ngClass]="{'in': type === 'in', 'out': type === 'out'}" class="circle" style="animation-delay: 1s"></div>
+                    <div *ngIf="isPulse" [ngClass]="{'in': type === 'in', 'out': type === 'out'}" class="circle" style="animation-delay: 2s"></div>
+                    <div *ngIf="isPulse" [ngClass]="{'in': type === 'in', 'out': type === 'out'}" class="circle" style="animation-delay: 4s"></div>
+                </div>
+            </div>
+
+            
+            <barcode-scanner-livestream-overlay
+            type="code_128"
+            (valueChanges)="onValueChanges($event)"
+            (started)="(onStarted)"
+          ></barcode-scanner-livestream-overlay>
+          <div [hidden]="!barcodeValue">
+            {{ barcodeValue }}
+          </div>
+
+        </div>
+        
+
+    </div>
+
+
+</div>

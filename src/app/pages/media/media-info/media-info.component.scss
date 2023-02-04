@@ -1,0 +1,17 @@
+.image_dir_en{
+    background-position-x: 100%;
+}
+.image_dir_ar{
+    background-position-x: 0%;
+}
+
+
+
+
+@media screen and (max-width: 900px) {
+    
+    .mediaInfoImage{
+        background-image: none !important;
+    }
+
+}
