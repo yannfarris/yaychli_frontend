@@ -145,7 +145,7 @@
           <button (click) = "addStop()" class = " btn btn-light-primary fw-bolder">{{ 'add_stop' | translate }}</button>
         </div>
 
-        <div cdkDropList (cdkDropListDropped)="drop($event)" class="stops my-3 d-flex flex-column  " *ngIf="stops.length > 0">
+        <div cdkDropList (cdkDropListDropped)="drop($event)" class="stops my-3 d-flex flex-column  " *ngIf="stops?.length > 0">
 
             <span class = "my-5 fs-3 fw-bold">{{ 'stops' | translate }}</span>
             <!-- <div class="separator my-2"></div>  -->

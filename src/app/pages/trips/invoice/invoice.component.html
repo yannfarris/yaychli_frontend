@@ -1,11 +1,39 @@
 <div class="print_area" id="invoice_wrapper">
     <div class="page_wrapper invoice_wrapper" *ngFor="let item of [1,2,3]; let i = index">
         <div class="inv-header" [ngClass]="{'red': i === 0, 'blue': i === 1, 'green': i === 2}">
-            <img style="
+            
+            <div class="numbers">
+                <div class="number" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                    <span>{{ 'kirkuk' | translate }}:</span>
+                    <span style="direction: ltr;" class = "fw-bolder text-start">+9647706615960 | +9647721000700</span>
+                </div>
+                <div class="number" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                    <span>{{ 'istanbul' | translate }}:</span>
+                    <span style="direction: ltr;" class = "fw-bolder text-start">+905312497836</span>
+                </div>
+             
+            </div>
+           
+           <img style="
             height: 2rem;
             margin: 2rem;
             filter: invert(1);"
             src="./assets/media/logos/logo-black.png" alt="">
+
+                 
+            <div class="numbers">
+       
+                <div class="number" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                    <span>{{ 'ankara' | translate }}:</span>
+                    <span style="direction: ltr;"  class = "fw-bolder text-start">+905353048499</span>
+                </div>
+                <div class="number" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
+                    <span [ngClass]="{ 'rtl-text ': (settings.currentLang | async) === 'ar'}">{{ 'app_address' | translate }}</span>
+               </div>
+             
+            </div>
+
+
         </div>
         <div class="body">
 

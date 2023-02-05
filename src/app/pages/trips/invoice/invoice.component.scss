@@ -13,7 +13,7 @@ html, body{
 
 .inv-header{
     width: 100%;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     display: flex;
     font-size: 2rem;
@@ -70,12 +70,13 @@ html, body{
 
 }
 .row_cont_title{
-    font-size: 1.7rem;
+    font-size: 1.3rem;
+    
 
 }
 
 .row_cont_desc{
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
@@ -123,4 +124,23 @@ html, body{
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
+}
+
+
+
+.numbers{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 1.2rem;
+    padding: 1.1rem;
+}
+
+
+.number{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-between;
 }

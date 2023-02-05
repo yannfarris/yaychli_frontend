@@ -300,6 +300,8 @@ export class NewRevComponent implements OnInit, OnDestroy, AfterViewInit {
       
       fieldsData.selected = this.selectedSeats
       fieldsData.trip_id = this.tripId;
+
+      console.log(fieldsData)
       let newData = this.trip.newRev(fieldsData).subscribe((res: any) => {
         if (!res) return;
         this.invoice()
