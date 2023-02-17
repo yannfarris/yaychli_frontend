@@ -46,7 +46,7 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.printing.nativeElement.click();
-    // this.closeModal()
+    this.closeModal()
   }
 
   ngOnDestroy(): void {
