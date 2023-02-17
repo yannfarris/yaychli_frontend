@@ -142,6 +142,7 @@ export class NewRevComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if (this.role.isMegaAdmin()) this.getBranchs();
     if (!this.role.isMegaAdmin()) this.form.get('branch_id').setValue(this.auth.currentUserValue.branch_id);
+  
   }
 
   isTaken(seat: any){
@@ -264,14 +265,13 @@ export class NewRevComponent implements OnInit, OnDestroy, AfterViewInit {
 
   
   invoice(){
-
     const dialogRef = this.dialog.open(InvoiceComponent, {
 
       disableClose: true,
       width: '90vw',
       maxWidth: '90vw',
       maxHeight: '95vh',
-      data: {item: this.data, seats: this.selectedSeats, customerName: this.form.get('name').value},
+      data: {item: this.data, stopId: this.form.get('stop').value ,totalPrice: this.rev_price.value * this.selectedSeats.length ,seats: this.selectedSeats, customerName: this.form.get('name').value},
     }).afterClosed().subscribe(res =>{
       if (!res) return;
       this.finalModalClose('done');
@@ -301,7 +301,6 @@ export class NewRevComponent implements OnInit, OnDestroy, AfterViewInit {
       fieldsData.selected = this.selectedSeats
       fieldsData.trip_id = this.tripId;
 
-      console.log(fieldsData)
       let newData = this.trip.newRev(fieldsData).subscribe((res: any) => {
         if (!res) return;
         this.invoice()

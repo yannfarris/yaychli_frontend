@@ -87,19 +87,19 @@
     
       <div class="footer" [ngClass]="{'red': i === 0, 'blue': i === 1, 'green': i === 2}">
     
-        <div class="row_cont">
+        <div class="row_cont" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
             <span class = "row_cont_title">{{ "trip_number2" | translate}} </span>
             <span class = "row_cont_desc">{{ data.item.code }}</span>
         </div>
     
-        <div class="row_cont">
+        <div class="row_cont" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
             <span class = "row_cont_title">{{ "bus_number2" | translate}} </span>
             <span class = "row_cont_desc">{{ data.item.bus.number }}</span>
         </div>
 
-        <div class="row_cont">
+        <div class="row_cont" [ngClass]="{ 'rtl-dir': (settings.currentLang | async) === 'ar'}">
             <span class = "row_cont_title">{{ "rev_price2" | translate}} </span>
-            <span class = "row_cont_desc">{{ data.item?.reservations[0]?.price | currency }}</span>
+            <span class = "row_cont_desc">{{ data.totalPrice | currency }}</span>
         </div>
     
       </div>

@@ -11,7 +11,7 @@ import { AppSettingsService } from 'src/app/shared/services/appSettings/app-sett
 export class InvoiceComponent implements OnInit, AfterViewInit {
   @ViewChild('printing') printing: ElementRef<HTMLButtonElement>;
   private unsubscribe: Subscription[] = [];
-  stopId = this.data?.item?.reservations[0]?.stop_id
+  stopId = this.data?.stopId
   stops = this.data?.item?.stops
   constructor(
     public settings: AppSettingsService,
@@ -36,7 +36,7 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   getStop(){
 
     let stops = JSON.parse(this.stops);
-    let stop = stops.filter((el:any) => el.id !== this.stopId);
+    let stop = stops.filter((el:any) => el.id === this.stopId);
     return stop[0];
   }
 
@@ -46,7 +46,7 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.printing.nativeElement.click();
-    this.closeModal()
+    // this.closeModal()
   }
 
   ngOnDestroy(): void {

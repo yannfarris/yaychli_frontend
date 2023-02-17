@@ -175,29 +175,6 @@
                   >
                 </mat-form-field>
               </div>
-
-            <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-          
-                  <label for="account_type" class="d-flex align-items-center fs-6 fw-bold mb-2 required">
-                      <span class="fw-bolder">{{ 'rev_type' | translate }}</span>
-                  </label>
-          
-                  <mat-form-field appearance="fill" class=" select">
-          
-                      <mat-select formControlName = "type" value = 'all' (keydown.enter)="$event.preventDefault();" (keydown.shift.enter)="$event.preventDefault();">
-                         
-                          <mat-option value ="final">{{ "final" | translate }}</mat-option>
-                          <mat-option value ="temp">{{ "temp" | translate }}</mat-option>
-          
-                      </mat-select>
-          
-                      <mat-error class=" fs-6" *ngIf="form.get('branch_id')?.hasError('required') && form.get('branch_id')?.touched">{{
-                          'general.this_field_required' | translate }}
-                      </mat-error>
-
-                  </mat-form-field>
-          
-            </div>
           
                 <div class="field-group d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
                   <!--begin::Label-->
